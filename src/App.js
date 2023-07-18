@@ -1,8 +1,10 @@
 import './App.css';
+import UserForm from './components/Form';
 
 function App() {
   return (
     <div className="App">
+        <UserForm/>
     </div>
   );
 }
