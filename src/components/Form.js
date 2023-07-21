@@ -238,7 +238,7 @@ class UserForm extends Component {
               </div>
 
               {/* Current list */}
-              <List details={this.state.experienceList} section="Experience" />
+              <List details={this.state.experienceList} section="Experience" handleUnitRemoval={this.handleRemoveEntry}/>
             </div>
 
             <Button
@@ -340,15 +340,15 @@ class UserForm extends Component {
 
   handleRemoveEntry = (id, section) => {
 
-    const targetList = this.state[`${section}List`];
-    console.log(targetList)
+    const targetList = (section === 'Education') ? this.state.educationList : this.state.experienceList;
 
-    // const updatedList = targetList.filter((entry) => (entry.id !== id))
+    const updatedList = targetList.filter((entry) => (entry.id !== id))
 
-    // this.setState({
-    //     [section+ "List"]: updatedList
-    // })
+    console.log('updatedList: ' + updatedList)
 
+    this.setState({
+        [`${section.toLowerCase()}List`]: updatedList
+    })
 
   }
 
