@@ -37,8 +37,23 @@
   }
 }
 
+
+.main {
+    padding: 2rem;
+    display: grid;
+    grid-template-rows: 1fr 12fr;
+    grid-template-columns: 6fr 1fr 4fr;
+    grid-template-areas:
+    "gen gen gen"
+    "form . cv";
+
+    align-items: flex-start;
+    justify-content: center;
+}
+
 .myForm {
     background-color: #d8d8d84d;
+    grid-area: form;
 }
 
 .nextButton {
@@ -55,25 +70,30 @@
 
 .cv {
     padding: 28px;
+    grid-area: cv;
+    background-color: none;
 }
 
 #nav-dots {
+    width: 100%;
+    align-self: space-between;
+    grid-area: nav;
     justify-content: space-around;
     display: flex;
-    gap: 2rem;
     margin: 0;
-    padding: 0;
+    padding: 1rem;
 }
 
 #nav-dots div {
     width: 2rem;
     height: 2rem;
     border-radius: 100%;
-    background-color: rgb(213, 213, 213);
+    background-color: rgb(212, 212, 212);
 }
 
-#nav-dots:hover {
+#nav-dots div:hover {
     cursor: pointer;
+    background-color: rgb(121, 121, 121);
 }
 
 .filled {
@@ -99,9 +119,10 @@
 }
 
 .generateButton {
-    position: absolute;
-    top: 110%;
-    right: 15%;
+    grid-area: gen; 
+    width: 20%;
+    align-self: flex-start;
+    justify-self: flex-end;
 }
   
 .sectionHeader {
@@ -115,7 +136,8 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     grid-template-areas:
-    "inputs list"
+    "inputs list";
+    padding-right: 3rem;
 }
 
 .experienceSubsection, .educationSubsection, .generalSubsection {
@@ -123,6 +145,72 @@
 }
 
 .list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     height: 100%;
     grid-area: list;
+
+    gap: 1rem;
+}
+
+.listUnit {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    padding: 0.3rem;
+
+    background-color: rgb(198, 255, 198);
+}
+
+.listUnit strong {
+    padding-right: 0.5rem;
+}
+
+.listUnit em {
+    background-color: rgb(198, 255, 198);
+}
+
+.listUnitButtons, .listUnitButtons * {
+    background-color: transparent;
+}
+
+.listUnitButtons * svg:hover {
+    transform: scale(1.2);
+}
+
+.list * {
+    margin: 0;
+}
+
+.generalList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    grid-area: list;
+
+    gap: 1rem;
+}
+
+.general {
+
+    padding-left: 2rem;
+    align-self: flex-start;
+    align-items: flex-start;
+    background-color: transparent;
+
+    flex-wrap: wrap;
+
+}
+
+.general p {
+    display: flex;
+    max-width: 300px;
+    overflow: hidden;
+    flex-wrap: wrap;
+}
+
+.general{
+    text-decoration: underline;
 }
