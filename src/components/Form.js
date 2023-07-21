@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import uniqid from 'uniqid';
-
+import uniqid from "uniqid";
 
 import Form from "react-bootstrap/Form";
 
@@ -13,7 +12,7 @@ class UserForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      section: 2,
+      section: 1,
       generateCV: false,
       valid: false,
       experienceList: [],
@@ -23,6 +22,10 @@ class UserForm extends Component {
           fname: "",
           lname: "",
           dob: "",
+          email: "",
+          address: "",
+          mobile: "",
+          homePhone: "",
         },
         education: {
           educationName: "",
@@ -45,38 +48,94 @@ class UserForm extends Component {
     const { section, inputs } = this.state;
     switch (section) {
       case 1:
-        const { fname, lname, dob } = inputs.general;
+        const { fname, lname, dob, email, address, mobile, homePhone } =
+          inputs.general;
         return (
           <div className="formSection w-100">
             <h2 className="sectionHeader">General Info</h2>
             <div className="generalSection">
-                <div className="generalSubsection">
-              {/* first name */}
-              <FormSection
-                controlId="fname"
-                label="First Name"
-                name="fname"
-                value={fname}
-                type="text"
-                placeholder="John"
-                onChange={(e) => this.handleInputChange(e, "general")}
-                isInvalid={fname === ""}
-                feedback="Please fill out this field."
-              />
-              {/* last name */}
-              <FormSection
-                controlId="lname"
-                label="Last Name"
-                name="lname"
-                value={lname}
-                type="text"
-                placeholder="Smith"
-                onChange={(e) => this.handleInputChange(e, "general")}
-                isInvalid={lname === ""}
-                feedback="Please fill out this field."
-              />
-            </div>
-            <List details={[inputs.general]} section='General'/>
+              <div className="generalSubsection">
+                {/* first name */}
+                <FormSection
+                  controlId="fname"
+                  label="First Name"
+                  name="fname"
+                  value={fname}
+                  type="text"
+                  placeholder="John"
+                  onChange={(e) => this.handleInputChange(e, "general")}
+                  isInvalid={fname === ""}
+                  feedback="Please fill out this field."
+                />
+                {/* last name */}
+                <FormSection
+                  controlId="lname"
+                  label="Last Name"
+                  name="lname"
+                  value={lname}
+                  type="text"
+                  placeholder="Smith"
+                  onChange={(e) => this.handleInputChange(e, "general")}
+                  isInvalid={lname === ""}
+                  feedback="Please fill out this field."
+                />
+                <FormSection
+                  controlId="dob"
+                  label="Date of birth"
+                  name="dob"
+                  value={dob}
+                  type="date"
+                  placeholder=""
+                  onChange={(e) => this.handleInputChange(e, "general")}
+                  isInvalid={null}
+                  feedback=""
+                />
+                <FormSection
+                  controlId="email"
+                  label="Email"
+                  name="email"
+                  value={email}
+                  type="email"
+                  placeholder="example@gmail.com"
+                  onChange={(e) => this.handleInputChange(e, "general")}
+                  isInvalid={null}
+                  feedback=""
+                />
+                <FormSection
+                  controlId="address"
+                  label="Address"
+                  name="address"
+                  value={address}
+                  type="text"
+                  placeholder="221B Baker St., London"
+                  onChange={(e) => this.handleInputChange(e, "general")}
+                  isInvalid={null}
+                  feedback=""
+                />
+                <FormSection
+                  controlId="mobile"
+                  label="Mobile Number"
+                  name="mobile"
+                  value={mobile}
+                  type="tel"
+                  placeholder=""
+                  onChange={(e) => this.handleInputChange(e, "general")}
+                  isInvalid={null}
+                  feedback=""
+                />
+                <FormSection
+                  controlId="homePhone"
+                  label="Home Phone Number"
+                  name="homePhone"
+                  value={homePhone}
+                  type="tel"
+                  placeholder=""
+                  onChange={(e) => this.handleInputChange(e, "general")}
+                  isInvalid={null}
+                  feedback=""
+                />
+              </div>
+              <List details={[inputs.general]} section="General" />
             </div>
             <Button
               variant="outline-dark"
@@ -156,7 +215,11 @@ class UserForm extends Component {
               </div>
 
               {/* current list */}
-              <List details={this.state.educationList} section="Education" handleUnitRemoval={this.handleRemoveEntry}/>
+              <List
+                details={this.state.educationList}
+                section="Education"
+                handleUnitRemoval={this.handleRemoveEntry}
+              />
               {/* [{...:..., ...:...}, {}] */}
             </div>
 
@@ -238,16 +301,12 @@ class UserForm extends Component {
               </div>
 
               {/* Current list */}
-              <List details={this.state.experienceList} section="Experience" handleUnitRemoval={this.handleRemoveEntry}/>
+              <List
+                details={this.state.experienceList}
+                section="Experience"
+                handleUnitRemoval={this.handleRemoveEntry}
+              />
             </div>
-
-            <Button
-              className="generateButton"
-              type="submit"
-              variant={this.valid ? "success" : "secondary"}
-            >
-              Generate CV
-            </Button>
           </div>
         );
 
@@ -286,35 +345,35 @@ class UserForm extends Component {
     e.preventDefault();
   };
 
-  setSectionStateValues = (section, reset=false) => {
+  setSectionStateValues = (section, reset = false) => {
     const initialValues = {
-        general: {
-            fname: "",
-            lname: "",
-            dob: "",
-          },
-          education: {
-            educationName: "",
-            qualification: "",
-            startDate: "",
-            endDate: "",
-          },
-          experience: {
-            experienceName: "",
-            role: "",
-            expStartDate: "",
-            expEndDate: "",
-        }
-    }
+      general: {
+        fname: "",
+        lname: "",
+        dob: "",
+      },
+      education: {
+        educationName: "",
+        qualification: "",
+        startDate: "",
+        endDate: "",
+      },
+      experience: {
+        experienceName: "",
+        role: "",
+        expStartDate: "",
+        expEndDate: "",
+      },
+    };
     if (reset) {
-        this.setState((prevState) => ({
-            inputs: {
-              ...prevState.inputs,
-              [section]: initialValues[section],
-            },
-          }));
+      this.setState((prevState) => ({
+        inputs: {
+          ...prevState.inputs,
+          [section]: initialValues[section],
+        },
+      }));
     }
-  }
+  };
 
   handleAddEntry = (section) => {
     console.log("adding entry");
@@ -324,57 +383,66 @@ class UserForm extends Component {
         ? this.state.inputs.education
         : this.state.inputs.experience;
     const targetList = this.state[`${section}List`];
-    console.log('target list is ' + targetList)
+    console.log("target list is " + targetList);
 
     const newEntry = { ...targetSection, id: uniqid() };
 
     const updatedList = [...targetList, newEntry];
 
-    this.setState({ 
-      [section + "List"]: updatedList,
-    },
-    () => {
-        this.setSectionStateValues(section, true)
-    });
+    this.setState(
+      {
+        [section + "List"]: updatedList,
+      },
+      () => {
+        this.setSectionStateValues(section, true);
+      }
+    );
   };
 
   handleRemoveEntry = (id, section) => {
+    const targetList =
+      section === "Education"
+        ? this.state.educationList
+        : this.state.experienceList;
 
-    const targetList = (section === 'Education') ? this.state.educationList : this.state.experienceList;
+    const updatedList = targetList.filter((entry) => entry.id !== id);
 
-    const updatedList = targetList.filter((entry) => (entry.id !== id))
-
-    console.log('updatedList: ' + updatedList)
+    console.log("updatedList: " + updatedList);
 
     this.setState({
-        [`${section.toLowerCase()}List`]: updatedList
-    })
-
-  }
-
+      [`${section.toLowerCase()}List`]: updatedList,
+    });
+  };
 
   render() {
-    const { valid, section } = this.state;
+    const { valid, section, inputs, experienceList, educationList } = this.state;
 
     return (
-      <div className="w-100 d-flex flex-column align-items-center border-primary p-5">
-        <div id="nav-dots" className="w-50">
-          <div className={section === 1 ? "filled" : null} data-id="1"></div>
-          <div className={section === 2 ? "filled" : null} data-id="2"></div>
-          <div className={section === 3 ? "filled" : null} data-id="3"></div>
-        </div>
+      <div className="main">
+
         <Form
           noValidate
           validated={this.state.valid}
           onSubmit={this.handleFormSubmit}
-          className="p-3 m-5 myForm"
+          className="p-3 myForm d-flex flex-column"
         >
+          <div id="nav-dots" className="nav-dots">
+          <div className={section === 1 ? "filled" : null} data-id="1"></div>
+          <div className={section === 2 ? "filled" : null} data-id="2"></div>
+          <div className={section === 3 ? "filled" : null} data-id="3"></div>
+        </div>
           {this.renderSection()}
         </Form>
 
-        <h1>{valid ? "VALID FORM" : "INVALID FORM"}</h1>
+        <Button
+          className="generateButton"
+          type="submit"
+          variant={this.valid ? "success" : "secondary"}
+        >
+          Generate CV
+        </Button>
 
-        {valid ? <CV details={this.state.inputs} /> : null}
+        <CV general={inputs.general} education={educationList} experience={experienceList}/>
       </div>
     );
   }
