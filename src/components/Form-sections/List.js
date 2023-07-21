@@ -5,15 +5,27 @@ class List extends Component {
   render() {
     const { details, section, handleUnitRemoval, handleUnitEdit } = this.props;
 
-    console.log(details);
+    if (section === 'General') {
+        return (
+          <div className="list">
+            <h4>Your details:</h4>
+            {details.map((item, index) => (
+              <div className="listUnit" key={index}>
+                <p><strong>{item.fname} {item.lname}</strong></p>
+                <p>{item.dob}</p>
+              </div>
+            ))}
+          </div>
+        );
+      }
+
     return (
       <div className="list">
           <h4>Your {section}:</h4>
         {details.map((item, index) => (
-          <div className="listUnit" key={item.id}>
-            <p>Item: {item.id} </p>
+          <div className="listUnit" key={index}>
             <div className="listUnitButtons">
-              <button className="border-0" onClick={(e) => handleUnitRemoval(item.id, section )}>
+              <button className="border-0" onClick={() => handleUnitRemoval(item.id, section)}>
                 <Trash />
               </button>
               <button className="border-0" onClick={handleUnitEdit}>
@@ -21,9 +33,9 @@ class List extends Component {
               </button>
             </div>
             <p>
-              <strong>{item.educationName || item.experienceName || item.fname}</strong>
+              <strong>{item.educationName || item.experienceName }</strong>
             </p>
-            <em> {item.qualification || item.role || item.dob}</em>
+            <em> {item.qualification || item.role }</em>
             <p>
               {item.startDate || item.expStartDate} - {item.endDate || item.expEndDate}
             </p>
