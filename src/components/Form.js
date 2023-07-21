@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
+import uniqid from 'uniqid';
+
 
 import Form from "react-bootstrap/Form";
 
@@ -11,7 +13,7 @@ class UserForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      section: 1,
+      section: 2,
       generateCV: false,
       valid: false,
       experienceList: [],
@@ -74,7 +76,7 @@ class UserForm extends Component {
                 feedback="Please fill out this field."
               />
             </div>
-            <List details={[fname, lname]} section='General'/>
+            <List details={[inputs.general]} section='General'/>
             </div>
             <Button
               variant="outline-dark"
@@ -154,7 +156,7 @@ class UserForm extends Component {
               </div>
 
               {/* current list */}
-              <List details={this.state.educationList} section="Education" />
+              <List details={this.state.educationList} section="Education" handleUnitRemoval={this.handleRemoveEntry}/>
               {/* [{...:..., ...:...}, {}] */}
             </div>
 
@@ -284,6 +286,36 @@ class UserForm extends Component {
     e.preventDefault();
   };
 
+  setSectionStateValues = (section, reset=false) => {
+    const initialValues = {
+        general: {
+            fname: "",
+            lname: "",
+            dob: "",
+          },
+          education: {
+            educationName: "",
+            qualification: "",
+            startDate: "",
+            endDate: "",
+          },
+          experience: {
+            experienceName: "",
+            role: "",
+            expStartDate: "",
+            expEndDate: "",
+        }
+    }
+    if (reset) {
+        this.setState((prevState) => ({
+            inputs: {
+              ...prevState.inputs,
+              [section]: initialValues[section],
+            },
+          }));
+    }
+  }
+
   handleAddEntry = (section) => {
     console.log("adding entry");
     // validate section elements(??)
@@ -292,14 +324,34 @@ class UserForm extends Component {
         ? this.state.inputs.education
         : this.state.inputs.experience;
     const targetList = this.state[`${section}List`];
+    console.log('target list is ' + targetList)
 
-    const updatedList = [...targetList, targetSection];
-    console.log(targetSection, targetList);
+    const newEntry = { ...targetSection, id: uniqid() };
 
-    this.setState({
+    const updatedList = [...targetList, newEntry];
+
+    this.setState({ 
       [section + "List"]: updatedList,
+    },
+    () => {
+        this.setSectionStateValues(section, true)
     });
   };
+
+  handleRemoveEntry = (id, section) => {
+
+    const targetList = this.state[`${section}List`];
+    console.log(targetList)
+
+    // const updatedList = targetList.filter((entry) => (entry.id !== id))
+
+    // this.setState({
+    //     [section+ "List"]: updatedList
+    // })
+
+
+  }
+
 
   render() {
     const { valid, section } = this.state;
