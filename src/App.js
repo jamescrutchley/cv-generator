@@ -4,7 +4,7 @@ import CV from './components/Cv';
 
 function App() {
   return (
-    <div className="App d-grid align-items-center">
+    <div className="App d-grid">
         <UserForm/>
     </div>
   );
