@@ -6,13 +6,14 @@ import Form from "react-bootstrap/Form";
 
 import CV from "./Cv";
 import FormSection from "./Form-sections/FormSection";
+import TextareaAutosize from 'react-textarea-autosize';
 import List from "./Form-sections/List";
 
 class UserForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      section: 1,
+      section: 3,
       generateCV: false,
       valid: false,
       experienceList: [],
@@ -32,12 +33,14 @@ class UserForm extends Component {
           qualification: "",
           startDate: "",
           endDate: "",
+          description: "",
         },
         experience: {
           experienceName: "",
           role: "",
           expStartDate: "",
           expEndDate: "",
+          expDescription: "",
         },
       },
     };
@@ -233,7 +236,7 @@ class UserForm extends Component {
           </div>
         );
       case 3:
-        const { experienceName, role, expStartDate, expEndDate } =
+        const { experienceName, role, expStartDate, expEndDate, expDescription } =
           inputs.experience;
         return (
           <div className="formSection w-100">
@@ -292,6 +295,18 @@ class UserForm extends Component {
                   isInvalid={null}
                   feedback="Please fill out this field."
                 />
+        
+                <TextareaAutosize
+                  className="mb-1 w-100 textarea"
+                  controlId="expDescription"
+                  label="Description"
+                  name="expDescription"
+                  value={expDescription}
+                  placeholder="Describe your experience in this role."
+                  onChange={(e) => this.handleInputChange(e, "experience")}
+                  isInvalid={null}
+                  feedback=""
+                />
                 <Button
                   onClick={(e) => this.handleAddEntry("experience")}
                   className="entryButton align-self-center w-75 m-3"
@@ -327,9 +342,8 @@ class UserForm extends Component {
   };
 
   handleInputChange = (e, section) => {
-    console.log(this.state);
     const { name, value } = e.target;
-
+    console.log(name)
     this.setState((prevState) => ({
       inputs: {
         ...prevState.inputs,
@@ -363,6 +377,7 @@ class UserForm extends Component {
         role: "",
         expStartDate: "",
         expEndDate: "",
+        expDescription: "",
       },
     };
     if (reset) {
