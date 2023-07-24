@@ -342,3 +342,12 @@
     font-size: 0.5rem;
     position: relative;
 }
+
+.editButton {
+    border: none;
+    border-radius: 100%;
+}
+
+.active {
+    background-color: rgb(148, 255, 148);
+}
