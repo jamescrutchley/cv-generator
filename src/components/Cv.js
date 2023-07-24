@@ -11,7 +11,6 @@ class CV extends Component {
 
   render() {
     const { general, education, experience } = this.props;
-    console.log('cv exp: ' + experience.expEndDate)
 
     return <div 
     style={this.divStyle}
@@ -45,16 +44,18 @@ class CV extends Component {
         <div className="cvExperience cvSub">
             <h4>Experience:</h4>
             {experience.map((item, index) => (
-            <div key={index} className="cvEducationEntry">
-                <p>
-                <h5>{item.experienceName}</h5>
-                </p>
-                <em> {item.role}</em>
-                <p>
-                {item.expStartDate} - {item.expEndDate || 'Ongoing'}
-                </p>
+            <div key={index} className="cvExperienceEntry">
+                <div className="expDetails">
+                    <p>
+                    <h5>{item.experienceName}</h5>
+                    </p>
+                    <em> {item.role}</em>
+                    <p>
+                    {item.expStartDate} - {item.expEndDate || 'Ongoing'}
+                    </p>
+                </div>
                 <div className="cvDescriptionBlock">
-                    {item.description}
+                    {item.expDescription}
                 </div>
             </div>
         ))}
