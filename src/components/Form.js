@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
+import { Arrow90degDown } from "react-bootstrap-icons";
 import uniqid from "uniqid";
 
 import Form from "react-bootstrap/Form";
@@ -13,7 +14,8 @@ class UserForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      section: 3,
+      currentlyEditing: '',
+      section: 2,
       generateCV: false,
       valid: false,
       experienceList: [],
@@ -48,7 +50,7 @@ class UserForm extends Component {
   }
 
   renderSection() {
-    const { section, inputs } = this.state;
+    const { section, inputs, currentlyEditing } = this.state;
     switch (section) {
       case 1:
         const { fname, lname, dob, email, address, mobile, homePhone } =
@@ -209,12 +211,21 @@ class UserForm extends Component {
                   isInvalid={null}
                   feedback="Ensure end date is valid"
                 />
-                <Button
-                  onClick={(e) => this.handleAddEntry("education")}
-                  className="w-75 m-3"
-                >
-                  Add entry
-                </Button>
+
+                <div>
+                    {currentlyEditing ? (
+                        // Render this button when currentlyEditing is true
+                        <Button onClick={(e) => this.handleUpdateEntry(currentlyEditing, "education")} className="w-75 m-3" variant="primary">
+                        Update
+                        </Button>
+                    ) : (
+                        // Render this button when currentlyEditing is false
+                        <Button onClick={(e) => this.handleAddEntry("education")} className="w-75 m-3" variant="primary">
+                        Add entry
+                        </Button>
+                    )}
+                </div>
+
               </div>
 
               {/* current list */}
@@ -222,6 +233,8 @@ class UserForm extends Component {
                 details={this.state.educationList}
                 section="Education"
                 handleUnitRemoval={this.handleRemoveEntry}
+                handleUnitEdit={this.handleEditEntry}
+                currentlyEditing={currentlyEditing}
               />
               {/* [{...:..., ...:...}, {}] */}
             </div>
@@ -307,19 +320,28 @@ class UserForm extends Component {
                   isInvalid={null}
                   feedback=""
                 />
-                <Button
-                  onClick={(e) => this.handleAddEntry("experience")}
-                  className="entryButton align-self-center w-75 m-3"
-                >
-                  Add entry
-                </Button>
+                                <div>
+                    {currentlyEditing ? (
+                        // Render this button when currentlyEditing is true
+                        <Button onClick={(e) => this.handleUpdateEntry(currentlyEditing, "experience")} className="w-75 m-3" variant="primary">
+                        Update
+                        </Button>
+                    ) : (
+                        // Render this button when currentlyEditing is false
+                        <Button onClick={(e) => this.handleAddEntry("experience")} className="w-75 m-3" variant="primary">
+                        Add entry
+                        </Button>
+                    )}
+                </div>
               </div>
 
               {/* Current list */}
               <List
                 details={this.state.experienceList}
                 section="Experience"
+                handleUnitEdit={this.handleEditEntry}
                 handleUnitRemoval={this.handleRemoveEntry}
+                currentlyEditing={currentlyEditing}
               />
             </div>
           </div>
@@ -331,8 +353,13 @@ class UserForm extends Component {
   }
 
   handleNavigationChange = (e) => {
+
     console.log("nav");
     const currentSection = this.state.section;
+    this.setState({
+        currentlyEditing: ''
+    })
+
     let goToSection =
       e.target.name === "back" ? currentSection - 1 : currentSection + 1;
 
@@ -343,7 +370,6 @@ class UserForm extends Component {
 
   handleInputChange = (e, section) => {
     const { name, value } = e.target;
-    console.log(name)
     this.setState((prevState) => ({
       inputs: {
         ...prevState.inputs,
@@ -361,11 +387,6 @@ class UserForm extends Component {
 
   setSectionStateValues = (section, reset = false) => {
     const initialValues = {
-      general: {
-        fname: "",
-        lname: "",
-        dob: "",
-      },
       education: {
         educationName: "",
         qualification: "",
@@ -390,6 +411,34 @@ class UserForm extends Component {
     }
   };
 
+  handleUpdateEntry = (entryID, section) => {
+
+    const entryIndex =
+    section === "education"
+      ? this.state.educationList.findIndex((entry) => entry.id === entryID)
+      : this.state.experienceList.findIndex((entry) => entry.id === entryID);
+
+  if (entryIndex !== -1) {
+
+    const updatedList =
+      section === "education"
+        ? [...this.state.educationList]
+        : [...this.state.experienceList];
+
+    updatedList[entryIndex] = { ...updatedList[entryIndex], ...this.state.inputs[section] };
+
+    this.setState({
+      [`${section}List`]: updatedList,
+      currentlyEditing: '',
+    },
+    () => {
+        this.setSectionStateValues(section, true);
+      });
+  }
+
+
+  }
+
   handleAddEntry = (section) => {
     console.log("adding entry");
     // validate section elements(??)
@@ -398,11 +447,15 @@ class UserForm extends Component {
         ? this.state.inputs.education
         : this.state.inputs.experience;
     const targetList = this.state[`${section}List`];
-    console.log("target list is " + targetList);
+
 
     const newEntry = { ...targetSection, id: uniqid() };
 
+    console.log(newEntry);
+
     const updatedList = [...targetList, newEntry];
+
+    console.log(updatedList)
 
     this.setState(
       {
@@ -414,18 +467,53 @@ class UserForm extends Component {
     );
   };
 
-  handleRemoveEntry = (id, section) => {
+  handleEditEntry = (id, section) => {
+
+    this.setState({
+        currentlyEditing: id
+    });
+
+    console.log(this.state)
+    let entryKeys;
     const targetList =
-      section === "Education"
+    section === "education"
+      ? this.state.educationList
+      : this.state.experienceList;
+
+    const selectedEntry = targetList.find((entry) => entry.id === id);
+
+    if (selectedEntry) {
+        entryKeys = Object.keys(selectedEntry)
+    };
+
+    const newInputValues = entryKeys.reduce((acc, key) => {
+        acc[key] = selectedEntry[key];
+        return acc;
+      }, {});
+  
+      this.setState((prevState) => ({
+        inputs: {
+          ...prevState.inputs,
+          [section.toLowerCase()]: newInputValues,
+        },
+      }));
+    }
+
+
+
+  handleRemoveEntry = (id, section) => {
+
+    const targetList =
+      section === "education" 
         ? this.state.educationList
         : this.state.experienceList;
 
     const updatedList = targetList.filter((entry) => entry.id !== id);
 
-    console.log("updatedList: " + updatedList);
+    console.log(updatedList, targetList)
 
     this.setState({
-      [`${section.toLowerCase()}List`]: updatedList,
+      [`${section}List`]: updatedList,
     });
   };
 
@@ -439,7 +527,7 @@ class UserForm extends Component {
           noValidate
           validated={this.state.valid}
           onSubmit={this.handleFormSubmit}
-          className="p-3 myForm d-flex flex-column"
+          className="myForm d-flex flex-column"
         >
           <div id="nav-dots" className="nav-dots">
           <div className={section === 1 ? "filled" : null} data-id="1"></div>
@@ -449,13 +537,20 @@ class UserForm extends Component {
           {this.renderSection()}
         </Form>
 
-        <Button
-          className="generateButton"
-          type="submit"
-          variant={this.valid ? "success" : "secondary"}
-        >
-          Generate CV
-        </Button>
+        <div className="appHeader">
+            <div className="header-left">
+                <Arrow90degDown size={50}/>
+                <h1>Your Data Goes In
+                    <p className="disclaimer">Promise we won't keep it</p>
+                </h1>
+            </div>
+            <div className="header-right">
+                <h1>Your CV Comes Out
+                    <p className="disclaimer">Employment guaranteed</p>
+                </h1>
+                <Arrow90degDown className="arrowInverted" size={50}/>
+            </div>
+        </div>
 
         <CV general={inputs.general} education={educationList} experience={experienceList}/>
       </div>

@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Trash, Pen } from "react-bootstrap-icons";
 
 class List extends Component {
+  
   render() {
-    const { details, section, handleUnitRemoval, handleUnitEdit } = this.props;
+    const { details, section, handleUnitRemoval, handleUnitEdit, currentlyEditing } = this.props;
 
     if (section === "General") {
       return (
@@ -64,11 +65,11 @@ class List extends Component {
             <div className="listUnitButtons">
               <button
                 className="border-0"
-                onClick={() => handleUnitRemoval(item.id, section)}
+                onClick={() => handleUnitRemoval(item.id, section.toLowerCase())}
               >
                 <Trash />
               </button>
-              <button className="border-0" onClick={handleUnitEdit}>
+              <button className={(currentlyEditing === item.id) ? 'active editButton' : 'editButton'} onClick={() => handleUnitEdit(item.id, section.toLowerCase())}>
                 <Pen />
               </button>
             </div>
