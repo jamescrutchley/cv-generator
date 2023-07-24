@@ -7,14 +7,14 @@ import Form from "react-bootstrap/Form";
 
 import CV from "./Cv";
 import FormSection from "./Form-sections/FormSection";
-import TextareaAutosize from 'react-textarea-autosize';
+import TextareaAutosize from "react-textarea-autosize";
 import List from "./Form-sections/List";
 
 class UserForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentlyEditing: '',
+      currentlyEditing: "",
       section: 2,
       generateCV: false,
       valid: false,
@@ -213,19 +213,28 @@ class UserForm extends Component {
                 />
 
                 <div>
-                    {currentlyEditing ? (
-                        // Render this button when currentlyEditing is true
-                        <Button onClick={(e) => this.handleUpdateEntry(currentlyEditing, "education")} className="w-75 m-3" variant="primary">
-                        Update
-                        </Button>
-                    ) : (
-                        // Render this button when currentlyEditing is false
-                        <Button onClick={(e) => this.handleAddEntry("education")} className="w-75 m-3" variant="primary">
-                        Add entry
-                        </Button>
-                    )}
+                  {currentlyEditing ? (
+                    // Render this button when currentlyEditing is true
+                    <Button
+                      onClick={(e) =>
+                        this.handleUpdateEntry(currentlyEditing, "education")
+                      }
+                      className="w-75 m-3"
+                      variant="primary"
+                    >
+                      Update
+                    </Button>
+                  ) : (
+                    // Render this button when currentlyEditing is false
+                    <Button
+                      onClick={(e) => this.handleAddEntry("education")}
+                      className="w-75 m-3"
+                      variant="primary"
+                    >
+                      Add entry
+                    </Button>
+                  )}
                 </div>
-
               </div>
 
               {/* current list */}
@@ -249,8 +258,13 @@ class UserForm extends Component {
           </div>
         );
       case 3:
-        const { experienceName, role, expStartDate, expEndDate, expDescription } =
-          inputs.experience;
+        const {
+          experienceName,
+          role,
+          expStartDate,
+          expEndDate,
+          expDescription,
+        } = inputs.experience;
         return (
           <div className="formSection w-100">
             <h2 className="sectionHeader">Experience</h2>
@@ -308,7 +322,7 @@ class UserForm extends Component {
                   isInvalid={null}
                   feedback="Please fill out this field."
                 />
-        
+
                 <TextareaAutosize
                   className="mb-1 w-100 textarea"
                   controlId="expDescription"
@@ -320,18 +334,28 @@ class UserForm extends Component {
                   isInvalid={null}
                   feedback=""
                 />
-                                <div>
-                    {currentlyEditing ? (
-                        // Render this button when currentlyEditing is true
-                        <Button onClick={(e) => this.handleUpdateEntry(currentlyEditing, "experience")} className="w-75 m-3" variant="primary">
-                        Update
-                        </Button>
-                    ) : (
-                        // Render this button when currentlyEditing is false
-                        <Button onClick={(e) => this.handleAddEntry("experience")} className="w-75 m-3" variant="primary">
-                        Add entry
-                        </Button>
-                    )}
+                <div>
+                  {currentlyEditing ? (
+                    // Render this button when currentlyEditing is true
+                    <Button
+                      onClick={(e) =>
+                        this.handleUpdateEntry(currentlyEditing, "experience")
+                      }
+                      className="w-75 m-3"
+                      variant="primary"
+                    >
+                      Update
+                    </Button>
+                  ) : (
+                    // Render this button when currentlyEditing is false
+                    <Button
+                      onClick={(e) => this.handleAddEntry("experience")}
+                      className="w-75 m-3"
+                      variant="primary"
+                    >
+                      Add entry
+                    </Button>
+                  )}
                 </div>
               </div>
 
@@ -353,12 +377,10 @@ class UserForm extends Component {
   }
 
   handleNavigationChange = (e) => {
-
-    console.log("nav");
     const currentSection = this.state.section;
     this.setState({
-        currentlyEditing: ''
-    })
+      currentlyEditing: "",
+    });
 
     let goToSection =
       e.target.name === "back" ? currentSection - 1 : currentSection + 1;
@@ -412,35 +434,35 @@ class UserForm extends Component {
   };
 
   handleUpdateEntry = (entryID, section) => {
-
     const entryIndex =
-    section === "education"
-      ? this.state.educationList.findIndex((entry) => entry.id === entryID)
-      : this.state.experienceList.findIndex((entry) => entry.id === entryID);
-
-  if (entryIndex !== -1) {
-
-    const updatedList =
       section === "education"
-        ? [...this.state.educationList]
-        : [...this.state.experienceList];
+        ? this.state.educationList.findIndex((entry) => entry.id === entryID)
+        : this.state.experienceList.findIndex((entry) => entry.id === entryID);
 
-    updatedList[entryIndex] = { ...updatedList[entryIndex], ...this.state.inputs[section] };
+    if (entryIndex !== -1) {
+      const updatedList =
+        section === "education"
+          ? [...this.state.educationList]
+          : [...this.state.experienceList];
 
-    this.setState({
-      [`${section}List`]: updatedList,
-      currentlyEditing: '',
-    },
-    () => {
-        this.setSectionStateValues(section, true);
-      });
-  }
+      updatedList[entryIndex] = {
+        ...updatedList[entryIndex],
+        ...this.state.inputs[section],
+      };
 
-
-  }
+      this.setState(
+        {
+          [`${section}List`]: updatedList,
+          currentlyEditing: "",
+        },
+        () => {
+          this.setSectionStateValues(section, true);
+        }
+      );
+    }
+  };
 
   handleAddEntry = (section) => {
-    console.log("adding entry");
     // validate section elements(??)
     const targetSection =
       section === "education"
@@ -448,14 +470,10 @@ class UserForm extends Component {
         : this.state.inputs.experience;
     const targetList = this.state[`${section}List`];
 
-
     const newEntry = { ...targetSection, id: uniqid() };
 
-    console.log(newEntry);
 
     const updatedList = [...targetList, newEntry];
-
-    console.log(updatedList)
 
     this.setState(
       {
@@ -468,49 +486,53 @@ class UserForm extends Component {
   };
 
   handleEditEntry = (id, section) => {
-
     this.setState({
-        currentlyEditing: id
+      currentlyEditing: id,
     });
 
-    console.log(this.state)
     let entryKeys;
     const targetList =
-    section === "education"
-      ? this.state.educationList
-      : this.state.experienceList;
+      section === "education"
+        ? this.state.educationList
+        : this.state.experienceList;
 
     const selectedEntry = targetList.find((entry) => entry.id === id);
 
     if (selectedEntry) {
-        entryKeys = Object.keys(selectedEntry)
-    };
-
-    const newInputValues = entryKeys.reduce((acc, key) => {
-        acc[key] = selectedEntry[key];
-        return acc;
-      }, {});
-  
-      this.setState((prevState) => ({
-        inputs: {
-          ...prevState.inputs,
-          [section.toLowerCase()]: newInputValues,
-        },
-      }));
+      entryKeys = Object.keys(selectedEntry);
     }
 
+    const newInputValues = entryKeys.reduce((acc, key) => {
+      acc[key] = selectedEntry[key];
+      return acc;
+    }, {});
 
+    this.setState((prevState) => ({
+      inputs: {
+        ...prevState.inputs,
+        [section.toLowerCase()]: newInputValues,
+      },
+    }));
+  };
 
   handleRemoveEntry = (id, section) => {
+    if (id === this.state.currentlyEditing) {
+      this.setState(
+        {
+          currentlyEditing: "",
+        },
+        () => {
+          this.setSectionStateValues(section, true);
+        }
+      );
+    }
 
     const targetList =
-      section === "education" 
+      section === "education"
         ? this.state.educationList
         : this.state.experienceList;
 
     const updatedList = targetList.filter((entry) => entry.id !== id);
-
-    console.log(updatedList, targetList)
 
     this.setState({
       [`${section}List`]: updatedList,
@@ -518,11 +540,11 @@ class UserForm extends Component {
   };
 
   render() {
-    const { valid, section, inputs, experienceList, educationList } = this.state;
+    const { valid, section, inputs, experienceList, educationList } =
+      this.state;
 
     return (
       <div className="main">
-
         <Form
           noValidate
           validated={this.state.valid}
@@ -530,29 +552,35 @@ class UserForm extends Component {
           className="myForm d-flex flex-column"
         >
           <div id="nav-dots" className="nav-dots">
-          <div className={section === 1 ? "filled" : null} data-id="1"></div>
-          <div className={section === 2 ? "filled" : null} data-id="2"></div>
-          <div className={section === 3 ? "filled" : null} data-id="3"></div>
-        </div>
+            <div className={section === 1 ? "filled" : null} data-id="1"></div>
+            <div className={section === 2 ? "filled" : null} data-id="2"></div>
+            <div className={section === 3 ? "filled" : null} data-id="3"></div>
+          </div>
           {this.renderSection()}
         </Form>
 
         <div className="appHeader">
-            <div className="header-left">
-                <Arrow90degDown size={50}/>
-                <h1>Your Data Goes In
-                    <p className="disclaimer">Promise we won't keep it</p>
-                </h1>
-            </div>
-            <div className="header-right">
-                <h1>Your CV Comes Out
-                    <p className="disclaimer">Employment guaranteed</p>
-                </h1>
-                <Arrow90degDown className="arrowInverted" size={50}/>
-            </div>
+          <div className="header-left">
+            <Arrow90degDown size={50} />
+            <h1>
+              Your Data Goes In
+              <p className="disclaimer">Promise we won't keep it</p>
+            </h1>
+          </div>
+          <div className="header-right">
+            <h1>
+              Your CV Comes Out
+              <p className="disclaimer">Employment guaranteed</p>
+            </h1>
+            <Arrow90degDown className="arrowInverted" size={50} />
+          </div>
         </div>
 
-        <CV general={inputs.general} education={educationList} experience={experienceList}/>
+        <CV
+          general={inputs.general}
+          education={educationList}
+          experience={experienceList}
+        />
       </div>
     );
   }
