@@ -1,11 +1,10 @@
 import './App.css';
-import UserForm from './components/Main';
-import CV from './components/Cv';
+import Main from './components/Main';
 
 function App() {
   return (
     <div className="App d-grid">
-        <UserForm/>
+        <Main/>
     </div>
   );
 }

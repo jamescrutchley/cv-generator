@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
 import { Arrow90degDown } from "react-bootstrap-icons";
 import uniqid from "uniqid";
 
 import Form from "react-bootstrap/Form";
 
 import CV from "./Cv";
-import FormSection from "./pages/FormSection";
-import TextareaAutosize from "react-textarea-autosize";
-import List from "./pages/List";
 
-class UserForm extends Component {
+import EducationPage from "./pages/education/EducationPage";
+import ExperiencePage from "./pages/experience/ExperiencePage";
+import GeneralPage from "./pages/general/GeneralPage";
+
+class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -50,222 +50,58 @@ class UserForm extends Component {
     this.handleNavigationChange = this.handleNavigationChange.bind(this);
   }
 
-  // 'App' 
-   //switch case 1 2 3
-    // generalPage educationPage
-            // generalForm - live
-            // generalList - definitive
-                // list item
+  // 'App'
+  //switch case 1 2 3
+  // generalPage educationPage
+  // generalForm - live
+  // generalList - definitive
+  // list item
   // CV
-
 
   renderSection() {
     const { section, inputs, currentlyEditing } = this.state;
+    const generalInputs = inputs?.general || {};
+    const educationInputs = inputs?.education || {};
+    const experienceInputs = inputs?.experience || {};
     switch (section) {
       case 1:
         const { fname, lname, dob, email, address, mobile, homePhone } =
-          inputs.general;
+          generalInputs;
         return (
-          <div className="formSection w-100">
-            <h2 className="sectionHeader">General Info</h2>
-            <div className="generalSection">
-              <div className="generalSubsection">
-                {/* first name */}
-                <FormSection
-                  controlId="fname"
-                  label="First Name"
-                  name="fname"
-                  value={fname}
-                  type="text"
-                  placeholder="John"
-                  onChange={(e) => this.handleInputChange(e, "general")}
-                  isInvalid={fname === ""}
-                  feedback="Please fill out this field."
-                />
-                {/* last name */}
-                <FormSection
-                  controlId="lname"
-                  label="Last Name"
-                  name="lname"
-                  value={lname}
-                  type="text"
-                  placeholder="Smith"
-                  onChange={(e) => this.handleInputChange(e, "general")}
-                  isInvalid={lname === ""}
-                  feedback="Please fill out this field."
-                />
-                <FormSection
-                  controlId="dob"
-                  label="Date of birth"
-                  name="dob"
-                  value={dob}
-                  type="date"
-                  placeholder=""
-                  onChange={(e) => this.handleInputChange(e, "general")}
-                  isInvalid={null}
-                  feedback=""
-                />
-                <FormSection
-                  controlId="email"
-                  label="Email"
-                  name="email"
-                  value={email}
-                  type="email"
-                  placeholder="example@gmail.com"
-                  onChange={(e) => this.handleInputChange(e, "general")}
-                  isInvalid={null}
-                  feedback=""
-                />
-                <FormSection
-                  controlId="address"
-                  label="Address"
-                  name="address"
-                  value={address}
-                  type="text"
-                  placeholder="221B Baker St., London"
-                  onChange={(e) => this.handleInputChange(e, "general")}
-                  isInvalid={null}
-                  feedback=""
-                />
-                <FormSection
-                  controlId="mobile"
-                  label="Mobile Number"
-                  name="mobile"
-                  value={mobile}
-                  type="tel"
-                  placeholder=""
-                  onChange={(e) => this.handleInputChange(e, "general")}
-                  isInvalid={null}
-                  feedback=""
-                />
-                <FormSection
-                  controlId="homePhone"
-                  label="Home Phone Number"
-                  name="homePhone"
-                  value={homePhone}
-                  type="tel"
-                  placeholder=""
-                  onChange={(e) => this.handleInputChange(e, "general")}
-                  isInvalid={null}
-                  feedback=""
-                />
-              </div>
-              <List details={[inputs.general]} section="General" />
-            </div>
-            <Button
-              variant="outline-dark"
-              onClick={this.handleNavigationChange}
-              className="navButton nextButton"
-            >
-              →
-            </Button>
-          </div>
+          <GeneralPage
+            fname={fname}
+            lname={lname}
+            dob={dob}
+            email={email}
+            address={address}
+            mobile={mobile}
+            homePhone={homePhone}
+            inputs={inputs}
+            section={section}
+            currentlyEditing={currentlyEditing}
+            />
         );
       case 2:
-        const { educationName, qualification, startDate, endDate } =
-          inputs.education;
+        const {
+          educationName,
+          qualification,
+          startDate,
+          endDate,
+          section,
+          inputs,
+          currentlyEditing,
+        } = educationInputs;
         return (
-          <div className="formSection w-100 justify-items-center">
-            <h2 className="sectionHeader">Education</h2>
-            <Button
-              name="back"
-              variant="outline-dark"
-              onClick={this.handleNavigationChange}
-              className="navButton backButton"
-            >
-              ←
-            </Button>
-            <div className="educationSection d-grid">
-              <div className="educationSubsection">
-                <FormSection
-                  controlId="educationName"
-                  label="Institution"
-                  name="educationName"
-                  value={educationName}
-                  type="text"
-                  placeholder="Harvard Medical School"
-                  onChange={(e) => this.handleInputChange(e, "education")}
-                  isInvalid={educationName === ""}
-                  feedback="Please fill out this field."
-                />
-                <FormSection
-                  controlId="qualification"
-                  label="Qualification"
-                  name="qualification"
-                  value={qualification}
-                  type="text"
-                  placeholder="Bachelor of Commerce"
-                  onChange={(e) => this.handleInputChange(e, "education")}
-                  isInvalid={qualification === ""}
-                  feedback="Please fill out this field."
-                />
-                <FormSection
-                  controlId="educationStartDate"
-                  label="Start Date"
-                  name="startDate"
-                  value={startDate}
-                  type="date"
-                  placeholder=""
-                  onChange={(e) => this.handleInputChange(e, "education")}
-                  isInvalid={null}
-                  feedback="Ensure start date is valid"
-                />
-                <FormSection
-                  controlId="educationEndDate"
-                  label="End Date"
-                  name="endDate"
-                  value={endDate}
-                  type="date"
-                  placeholder=""
-                  onChange={(e) => this.handleInputChange(e, "education")}
-                  isInvalid={null}
-                  feedback="Ensure end date is valid"
-                />
-
-                <div>
-                  {currentlyEditing ? (
-                    // Render this button when currentlyEditing is true
-                    <Button
-                      onClick={(e) =>
-                        this.handleUpdateEntry(currentlyEditing, "education")
-                      }
-                      className="w-75 m-3"
-                      variant="primary"
-                    >
-                      Update
-                    </Button>
-                  ) : (
-                    // Render this button when currentlyEditing is false
-                    <Button
-                      onClick={(e) => this.handleAddEntry("education")}
-                      className="w-75 m-3"
-                      variant="primary"
-                    >
-                      Add entry
-                    </Button>
-                  )}
-                </div>
-              </div>
-
-              {/* current list */}
-              <List
-                details={this.state.educationList}
-                section="Education"
-                handleUnitRemoval={this.handleRemoveEntry}
-                handleUnitEdit={this.handleEditEntry}
-                currentlyEditing={currentlyEditing}
-              />
-              {/* [{...:..., ...:...}, {}] */}
-            </div>
-
-            <Button
-              onClick={this.handleNavigationChange}
-              variant="outline-dark"
-              className="navButton nextButton"
-            >
-              →
-            </Button>
-          </div>
+          <EducationPage
+            educationList = {this.state.educationList}
+            educationName={educationName}
+            qualification={qualification}
+            startDate={startDate}
+            endDate={endDate}
+            section={section}
+            currentlyEditing={currentlyEditing}
+            inputs={inputs}
+          />
         );
       case 3:
         const {
@@ -274,111 +110,18 @@ class UserForm extends Component {
           expStartDate,
           expEndDate,
           expDescription,
-        } = inputs.experience;
+        } = experienceInputs;
         return (
-          <div className="formSection w-100">
-            <h2 className="sectionHeader">Experience</h2>
-            <Button
-              name="back"
-              variant="outline-dark"
-              onClick={this.handleNavigationChange}
-              className="navButton backButton"
-            >
-              ←
-            </Button>
-            <div className="experienceSection">
-              <div className="experienceSubsection">
-                <FormSection
-                  controlId="experienceName"
-                  label="Company/Organisation"
-                  name="experienceName"
-                  value={experienceName}
-                  type="text"
-                  placeholder="Microsoft"
-                  onChange={(e) => this.handleInputChange(e, "experience")}
-                  isInvalid={experienceName === ""}
-                  feedback="Please fill out this field."
-                />
-                <FormSection
-                  controlId="role"
-                  label="Role"
-                  name="role"
-                  value={role}
-                  type="text"
-                  placeholder="Account Manager"
-                  onChange={(e) => this.handleInputChange(e, "experience")}
-                  isInvalid={role === ""}
-                  feedback="Please fill out this field."
-                />
-                <FormSection
-                  controlId="expStartDate"
-                  label="Start Date"
-                  name="expStartDate"
-                  value={expStartDate}
-                  type="date"
-                  placeholder=""
-                  onChange={(e) => this.handleInputChange(e, "experience")}
-                  isInvalid={null}
-                  feedback="Please fill out this field."
-                />
-                <FormSection
-                  controlId="expEndDate"
-                  label="End Date"
-                  name="expEndDate"
-                  value={expEndDate}
-                  type="date"
-                  placeholder=""
-                  onChange={(e) => this.handleInputChange(e, "experience")}
-                  isInvalid={null}
-                  feedback="Please fill out this field."
-                />
-
-                <TextareaAutosize
-                  className="mb-1 w-100 textarea"
-                  controlId="expDescription"
-                  label="Description"
-                  name="expDescription"
-                  value={expDescription}
-                  placeholder="Describe your experience in this role."
-                  onChange={(e) => this.handleInputChange(e, "experience")}
-                  isInvalid={null}
-                  feedback=""
-                />
-                <div>
-                  {currentlyEditing ? (
-                    // Render this button when currentlyEditing is true
-                    <Button
-                      onClick={(e) =>
-                        this.handleUpdateEntry(currentlyEditing, "experience")
-                      }
-                      className="w-75 m-3"
-                      variant="primary"
-                    >
-                      Update
-                    </Button>
-                  ) : (
-                    // Render this button when currentlyEditing is false
-                    <Button
-                      onClick={(e) => this.handleAddEntry("experience")}
-                      className="w-75 m-3"
-                      variant="primary"
-                    >
-                      Add entry
-                    </Button>
-                  )}
-                </div>
-              </div>
-
-              {/* Current list */}
-              <List
-                details={this.state.experienceList}
-                section="Experience"
-                handleUnitEdit={this.handleEditEntry}
-                handleUnitRemoval={this.handleRemoveEntry}
-                currentlyEditing={currentlyEditing}
-              />
-            </div>
-          </div>
+          <ExperiencePage
+            experienceList = {this.state.experienceList}
+            experienceName={experienceName}
+            qualification={role}
+            startDate={expStartDate}
+            endDate={expEndDate}
+            section={section}
+            currentlyEditing={currentlyEditing}
+            description={expDescription}
+            inputs={inputs}/>
         );
 
       default:
@@ -481,7 +224,6 @@ class UserForm extends Component {
     const targetList = this.state[`${section}List`];
 
     const newEntry = { ...targetSection, id: uniqid() };
-
 
     const updatedList = [...targetList, newEntry];
 
@@ -596,4 +338,4 @@ class UserForm extends Component {
   }
 }
 
-export default UserForm;
+export default Main;
