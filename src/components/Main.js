@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Arrow90degDown } from "react-bootstrap-icons";
 import uniqid from "uniqid";
 
-import Form from "react-bootstrap/Form";
-
 import CV from "./Cv";
 
 import EducationPage from "./pages/education/EducationPage";
@@ -226,19 +224,14 @@ class Main extends Component {
 
     return (
       <div className="main">
-        <Form
-          noValidate
-          validated={this.state.valid}
-          onSubmit={this.handleFormSubmit}
-          className="myForm d-flex flex-column"
-        >
+        <div className="myForm">
           <div id="nav-dots" className="nav-dots">
             <div className={section === 1 ? "filled" : null} data-id="1"></div>
             <div className={section === 2 ? "filled" : null} data-id="2"></div>
             <div className={section === 3 ? "filled" : null} data-id="3"></div>
           </div>
           {this.renderSection()}
-        </Form>
+        </div>
 
         <div className="appHeader">
           <div className="header-left">

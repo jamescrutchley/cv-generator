@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import List from "../List";
-import TextareaAutosize from "react-textarea-autosize";
 import ExperienceForm from "./ExperienceForm";
 
 
