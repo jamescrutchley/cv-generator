@@ -1,29 +1,42 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
-import FormSection from "../generic/formItem";
+import FormItem from "../generic/FormItem";
 
 class GeneralForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            inputs: {
-                fname: "",
-                lname: "",
-                dob: "",
-                email: "",
-                address: "",
-                mobile: "",
-                homePhone: "",
-              }
-        }
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputs: {
+        fname: "",
+        lname: "",
+        dob: "",
+        email: "",
+        address: "",
+        mobile: "",
+        homePhone: "",
+      },
+    };
+  }
+
+  handleInputChange = (e) => {
+    console.log(e.target.value)
+    const { name, value } = e.target;
+    this.setState((prevState) => ({
+      inputs: {
+        ...prevState.inputs, // Spread the existing inputs object
+        [name]: value, // Update the specific field with the new value
+      },
+    }));
+  };
+
   render() {
-    const { fname, lname, dob, email, address, mobile, homePhone } = this.state.inputs
+    const { fname, lname, email, address, mobile, homePhone } =
+      this.state.inputs;
     return (
       <Form>
         <div className="generalSubsection">
           {/* first name */}
-          <FormSection
+          <FormItem
             controlId="fname"
             label="First Name"
             name="fname"
@@ -35,7 +48,7 @@ class GeneralForm extends Component {
             feedback="Please fill out this field."
           />
           {/* last name */}
-          <FormSection
+          <FormItem
             controlId="lname"
             label="Last Name"
             name="lname"
@@ -46,18 +59,7 @@ class GeneralForm extends Component {
             isInvalid={lname === ""}
             feedback="Please fill out this field."
           />
-          <FormSection
-            controlId="dob"
-            label="Date of birth"
-            name="dob"
-            value={dob}
-            type="date"
-            placeholder=""
-            onChange={(e) => this.handleInputChange(e, "general")}
-            isInvalid={null}
-            feedback=""
-          />
-          <FormSection
+          <FormItem
             controlId="email"
             label="Email"
             name="email"
@@ -68,7 +70,7 @@ class GeneralForm extends Component {
             isInvalid={null}
             feedback=""
           />
-          <FormSection
+          <FormItem
             controlId="address"
             label="Address"
             name="address"
@@ -79,7 +81,7 @@ class GeneralForm extends Component {
             isInvalid={null}
             feedback=""
           />
-          <FormSection
+          <FormItem
             controlId="mobile"
             label="Mobile Number"
             name="mobile"
@@ -90,7 +92,7 @@ class GeneralForm extends Component {
             isInvalid={null}
             feedback=""
           />
-          <FormSection
+          <FormItem
             controlId="homePhone"
             label="Home Phone Number"
             name="homePhone"

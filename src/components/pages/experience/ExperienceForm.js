@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import FormSection from "../generic/formItem";
+import FormItem from "../generic/FormItem";
 import TextareaAutosize from "react-textarea-autosize";
 
 class ExperienceForm extends Component {
@@ -11,18 +11,30 @@ class ExperienceForm extends Component {
             inputs: {
                 experienceName: "",
                 role: "",
-                expStartDate: "",
-                expEndDate: "",
-                expDescription: "",
+                startDate: "",
+                endDate: "",
+                description: "",
               },
         }
     }
-    
+
+    handleInputChange = (e) => {
+        console.log(e.target.value)
+        const { name, value } = e.target;
+        this.setState((prevState) => ({
+          inputs: {
+            ...prevState.inputs, // Spread the existing inputs object
+            [name]: value, // Update the specific field with the new value
+          },
+        }));
+      };
+
   render() {
+    const { experienceName, role, startDate, endDate, description } = this.state.inputs;
     return (
       <Form>
         <div className="experienceSubsection">
-          <FormSection
+          <FormItem
             controlId="experienceName"
             label="Company/Organisation"
             name="experienceName"
@@ -33,7 +45,7 @@ class ExperienceForm extends Component {
             isInvalid={experienceName === ""}
             feedback="Please fill out this field."
           />
-          <FormSection
+          <FormItem
             controlId="role"
             label="Role"
             name="role"
@@ -44,7 +56,7 @@ class ExperienceForm extends Component {
             isInvalid={role === ""}
             feedback="Please fill out this field."
           />
-          <FormSection
+          <FormItem
             controlId="expStartDate"
             label="Start Date"
             name="expStartDate"
@@ -55,7 +67,7 @@ class ExperienceForm extends Component {
             isInvalid={null}
             feedback="Please fill out this field."
           />
-          <FormSection
+          <FormItem
             controlId="expEndDate"
             label="End Date"
             name="expEndDate"
@@ -79,19 +91,6 @@ class ExperienceForm extends Component {
             feedback=""
           />
           <div>
-            {currentlyEditing ? (
-              // Render this button when currentlyEditing is true
-              <Button
-                onClick={(e) =>
-                  this.handleUpdateEntry(currentlyEditing, "experience")
-                }
-                className="w-75 m-3"
-                variant="primary"
-              >
-                Update
-              </Button>
-            ) : (
-              // Render this button when currentlyEditing is false
               <Button
                 onClick={(e) => this.handleAddEntry("experience")}
                 className="w-75 m-3"
@@ -99,7 +98,6 @@ class ExperienceForm extends Component {
               >
                 Add entry
               </Button>
-            )}
           </div>
         </div>
       </Form>

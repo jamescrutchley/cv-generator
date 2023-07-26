@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import List from "../List";
+import GeneralForm from "./generalForm";
 
 class GeneralPage extends Component {
   constructor(props) {
@@ -14,9 +15,10 @@ class GeneralPage extends Component {
     const { handleNavChange } = this.props;
     return (
       <>
-        <div className="formSection w-100">
+        <div className="formItem w-100">
           <h2 className="sectionHeader">General Info</h2>
           <div className="generalSection">
+            <GeneralForm/>
             <List details={["a"]} section="General" />
           </div>
           <Button

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import List from "../List";
+import EducationForm from "./EducationForm";
 
 class EducationPage extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class EducationPage extends Component {
 
     return (
       <>
-        <div className="formSection w-100 justify-items-center">
+        <div className="formItem w-100 justify-items-center">
           <h2 className="sectionHeader">Education</h2>
           <Button
             name="back"
@@ -26,13 +27,15 @@ class EducationPage extends Component {
             ←
           </Button>
           <div className="educationSection d-grid">
-            {/* current list */}
+            
+            <EducationForm/>
+
             <List
-              details={educationList}
+              details={this.state.list}
               section="Education"
               handleUnitRemoval={this.handleRemoveEntry}
               handleUnitEdit={this.handleEditEntry}
-              currentlyEditing={currentlyEditing}
+              currentlyEditing={this.state.currentlyEditing}
             />
             {/* [{...:..., ...:...}, {}] */}
           </div>

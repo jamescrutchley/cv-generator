@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 
-class FormSection extends Component {
+class FormItem extends Component {
   render() {
     const { controlId, label, name, type, placeholder, value, onChange, isInvalid, feedback } = this.props;
     return (
@@ -22,4 +22,4 @@ class FormSection extends Component {
   }
 }
 
-export default FormSection;
+export default FormItem;

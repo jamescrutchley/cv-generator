@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import FormSection from "../generic/formItem";
+import FormItem from "../generic/FormItem";
 
 
 class EducationForm extends Component {
@@ -18,11 +18,23 @@ class EducationForm extends Component {
         }
     }
 
+    handleInputChange = (e) => {
+        console.log(e.target.value)
+        const { name, value } = e.target;
+        this.setState((prevState) => ({
+          inputs: {
+            ...prevState.inputs, // Spread the existing inputs object
+            [name]: value, // Update the specific field with the new value
+          },
+        }));
+      };
+
   render() {
+    const { educationName, qualification, startDate, endDate, description } = this.state.inputs;
     return (
       <Form>
         <div className="educationSubsection">
-          <FormSection
+          <FormItem
             controlId="educationName"
             label="Institution"
             name="educationName"
@@ -33,7 +45,7 @@ class EducationForm extends Component {
             isInvalid={educationName === ""}
             feedback="Please fill out this field."
           />
-          <FormSection
+          <FormItem
             controlId="qualification"
             label="Qualification"
             name="qualification"
@@ -44,7 +56,7 @@ class EducationForm extends Component {
             isInvalid={qualification === ""}
             feedback="Please fill out this field."
           />
-          <FormSection
+          <FormItem
             controlId="educationStartDate"
             label="Start Date"
             name="startDate"
@@ -55,7 +67,7 @@ class EducationForm extends Component {
             isInvalid={null}
             feedback="Ensure start date is valid"
           />
-          <FormSection
+          <FormItem
             controlId="educationEndDate"
             label="End Date"
             name="endDate"
@@ -68,19 +80,6 @@ class EducationForm extends Component {
           />
 
           <div>
-            {currentlyEditing ? (
-              // Render this button when currentlyEditing is true
-              <Button
-                onClick={(e) =>
-                  this.handleUpdateEntry(currentlyEditing, "education")
-                }
-                className="w-75 m-3"
-                variant="primary"
-              >
-                Update
-              </Button>
-            ) : (
-              // Render this button when currentlyEditing is false
               <Button
                 onClick={(e) => this.handleAddEntry("education")}
                 className="w-75 m-3"
@@ -88,7 +87,6 @@ class EducationForm extends Component {
               >
                 Add entry
               </Button>
-            )}
           </div>
         </div>
       </Form>

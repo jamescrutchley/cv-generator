@@ -14,7 +14,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      section: 2,
+      section: 1,
     };
     this.handleNavigationChange = this.handleNavigationChange.bind(this);
   }
@@ -83,19 +83,6 @@ class Main extends Component {
       currentlyEditing: "",
       section: whereTo,
     });
-  };
-
-  handleInputChange = (e, section) => {
-    const { name, value } = e.target;
-    this.setState((prevState) => ({
-      inputs: {
-        ...prevState.inputs,
-        [section]: {
-          ...prevState.inputs[section],
-          [name]: value,
-        },
-      },
-    }));
   };
 
   handleFormSubmit = (e) => {
