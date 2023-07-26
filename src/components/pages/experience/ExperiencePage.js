@@ -13,10 +13,9 @@ class ExperiencePage extends Component {
       role,
       startDate,
       endDate,
-      section,
       currentlyEditing,
-      inputs,
       experienceList,
+      handleNavChange,
       description,
     } = this.props;
 
@@ -27,7 +26,7 @@ class ExperiencePage extends Component {
           <Button
             name="back"
             variant="outline-dark"
-            onClick={this.handleNavigationChange}
+            onClick={() => handleNavChange(2)}
             className="navButton backButton"
           >
             ←
@@ -117,7 +116,7 @@ class ExperiencePage extends Component {
 
             {/* Current list */}
             <List
-              details={this.state.experienceList}
+              details={experienceList}
               section="Experience"
               handleUnitEdit={this.handleEditEntry}
               handleUnitRemoval={this.handleRemoveEntry}

@@ -15,7 +15,7 @@ class Main extends Component {
     super(props);
     this.state = {
       currentlyEditing: "",
-      section: 2,
+      section: 1,
       generateCV: false,
       valid: false,
       //
@@ -59,7 +59,7 @@ class Main extends Component {
   // CV
 
   renderSection() {
-    const { section, inputs, currentlyEditing } = this.state;
+    const { section, inputs } = this.state;
     const generalInputs = inputs?.general || {};
     const educationInputs = inputs?.education || {};
     const experienceInputs = inputs?.experience || {};
@@ -76,31 +76,20 @@ class Main extends Component {
             address={address}
             mobile={mobile}
             homePhone={homePhone}
-            inputs={inputs}
-            section={section}
-            currentlyEditing={currentlyEditing}
-            />
+            handleNavChange={this.handleNavigationChange}
+          />
         );
       case 2:
-        const {
-          educationName,
-          qualification,
-          startDate,
-          endDate,
-          section,
-          inputs,
-          currentlyEditing,
-        } = educationInputs;
+        const { educationName, qualification, startDate, endDate } =
+          educationInputs;
         return (
           <EducationPage
-            educationList = {this.state.educationList}
+            educationList={this.state.educationList}
             educationName={educationName}
             qualification={qualification}
             startDate={startDate}
             endDate={endDate}
-            section={section}
-            currentlyEditing={currentlyEditing}
-            inputs={inputs}
+            handleNavChange={this.handleNavigationChange}
           />
         );
       case 3:
@@ -113,15 +102,14 @@ class Main extends Component {
         } = experienceInputs;
         return (
           <ExperiencePage
-            experienceList = {this.state.experienceList}
+            experienceList={this.state.experienceList}
             experienceName={experienceName}
-            qualification={role}
+            role={role}
             startDate={expStartDate}
             endDate={expEndDate}
-            section={section}
-            currentlyEditing={currentlyEditing}
             description={expDescription}
-            inputs={inputs}/>
+            handleNavChange={this.handleNavigationChange}
+          />
         );
 
       default:
@@ -129,17 +117,10 @@ class Main extends Component {
     }
   }
 
-  handleNavigationChange = (e) => {
-    const currentSection = this.state.section;
+  handleNavigationChange = (whereTo) => {
     this.setState({
       currentlyEditing: "",
-    });
-
-    let goToSection =
-      e.target.name === "back" ? currentSection - 1 : currentSection + 1;
-
-    this.setState({
-      section: goToSection,
+      section: whereTo,
     });
   };
 

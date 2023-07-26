@@ -13,10 +13,9 @@ class GeneralPage extends Component {
         address,
         mobile,
         homePhone,
-        inputs,
-        section,
-        currentlyEditing
+        handleNavChange
     } = this.props;
+    const section = 1;
     return (
       <>
         <div className="formSection w-100">
@@ -103,11 +102,11 @@ class GeneralPage extends Component {
                 feedback=""
               />
             </div>
-            <List details={[inputs.general]} section="General" />
+            <List details={['a']} section="General" />
           </div>
           <Button
             variant="outline-dark"
-            onClick={this.handleNavigationChange}
+            onClick={() => handleNavChange(2)}
             className="navButton nextButton"
           >
             →

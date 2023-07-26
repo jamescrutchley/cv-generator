@@ -10,10 +10,9 @@ class EducationPage extends Component {
       qualification,
       startDate,
       endDate,
-      section,
       currentlyEditing,
-      inputs,
-      educationList
+      educationList,
+      handleNavChange,
     } = this.props;
 
     return (
@@ -23,7 +22,7 @@ class EducationPage extends Component {
           <Button
             name="back"
             variant="outline-dark"
-            onClick={this.handleNavigationChange}
+            onClick={() => handleNavChange(1)}
             className="navButton backButton"
           >
             ←
@@ -112,7 +111,7 @@ class EducationPage extends Component {
           </div>
 
           <Button
-            onClick={this.handleNavigationChange}
+            onClick={() => handleNavChange(3)}
             variant="outline-dark"
             className="navButton nextButton"
           >
