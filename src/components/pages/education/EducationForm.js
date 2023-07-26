@@ -5,6 +5,19 @@ import FormSection from "../generic/formItem";
 
 
 class EducationForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            inputs: {
+                educationName: "",
+                qualification: "",
+                startDate: "",
+                endDate: "",
+                description: "",
+              },
+        }
+    }
+
   render() {
     return (
       <Form>

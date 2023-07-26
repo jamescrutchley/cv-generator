@@ -3,6 +3,13 @@ import Button from "react-bootstrap/Button";
 import List from "../List";
 
 class EducationPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            list: [],
+            currentlyEditing: "",
+        }
+    }
   render() {
     const {
       educationName,

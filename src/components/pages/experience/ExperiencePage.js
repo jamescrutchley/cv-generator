@@ -7,6 +7,13 @@ import TextareaAutosize from "react-textarea-autosize";
 
 
 class ExperiencePage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            list: [],
+            currentlyEditing: "",
+        }
+    }
   render() {
     const {
       experienceName,
@@ -36,7 +43,7 @@ class ExperiencePage extends Component {
 
             {/* Current list */}
             <List
-              details={experienceList}
+              details={this.state.experienceList}
               section="Experience"
               handleUnitEdit={this.handleEditEntry}
               handleUnitRemoval={this.handleRemoveEntry}

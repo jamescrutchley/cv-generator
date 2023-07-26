@@ -5,6 +5,19 @@ import FormSection from "../generic/formItem";
 import TextareaAutosize from "react-textarea-autosize";
 
 class ExperienceForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            inputs: {
+                experienceName: "",
+                role: "",
+                expStartDate: "",
+                expEndDate: "",
+                expDescription: "",
+              },
+        }
+    }
+    
   render() {
     return (
       <Form>

@@ -14,49 +14,10 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentlyEditing: "",
-      section: 1,
-      generateCV: false,
-      valid: false,
-      //
-      experienceList: [],
-      educationList: [],
-      inputs: {
-        general: {
-          fname: "",
-          lname: "",
-          dob: "",
-          email: "",
-          address: "",
-          mobile: "",
-          homePhone: "",
-        },
-        education: {
-          educationName: "",
-          qualification: "",
-          startDate: "",
-          endDate: "",
-          description: "",
-        },
-        experience: {
-          experienceName: "",
-          role: "",
-          expStartDate: "",
-          expEndDate: "",
-          expDescription: "",
-        },
-      },
+      section: 2,
     };
     this.handleNavigationChange = this.handleNavigationChange.bind(this);
   }
-
-  // 'App'
-  //switch case 1 2 3
-  // generalPage educationPage
-  // generalForm - live
-  // generalList - definitive
-  // list item
-  // CV
 
   renderSection() {
     const { section, inputs } = this.state;
@@ -309,11 +270,11 @@ class Main extends Component {
           </div>
         </div>
 
-        <CV
+        {/* <CV
           general={inputs.general}
           education={educationList}
           experience={experienceList}
-        />
+        /> */}
       </div>
     );
   }
