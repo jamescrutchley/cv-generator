@@ -4,7 +4,7 @@ import { Trash, Pen } from "react-bootstrap-icons";
 class List extends Component {
   
   render() {
-    const { details, section, handleUnitRemoval, handleUnitEdit, currentlyEditing } = this.props;
+    const { details, section, currentlyEditing, handleUnitRemoval, handleUnitEdit } = this.props;
 
     if (section === "General") {
       return (
@@ -58,9 +58,19 @@ class List extends Component {
     }
 
     return (
+        //if / else
       <div className="list">
         <h4>Your {section}:</h4>
-        {details.map((item, index) => (
+        {details.map((item, index) => ( // [{name: '', role: '', ...}, {...}]
+        //component for item
+        // if exp or education { }
+
+        // if case 1
+                 // <Component methods={...} data={{name={item.name}, startDate={item.start}}} }/>
+
+           //else 
+                // component data={{...]}}
+
           <div className="listUnit" key={index}>
             <div className="listUnitButtons">
               <button

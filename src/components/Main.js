@@ -6,9 +6,9 @@ import uniqid from "uniqid";
 import Form from "react-bootstrap/Form";
 
 import CV from "./Cv";
-import FormSection from "./Form-sections/FormSection";
+import FormSection from "./pages/FormSection";
 import TextareaAutosize from "react-textarea-autosize";
-import List from "./Form-sections/List";
+import List from "./pages/List";
 
 class UserForm extends Component {
   constructor(props) {
@@ -18,6 +18,7 @@ class UserForm extends Component {
       section: 2,
       generateCV: false,
       valid: false,
+      //
       experienceList: [],
       educationList: [],
       inputs: {
@@ -48,6 +49,15 @@ class UserForm extends Component {
     };
     this.handleNavigationChange = this.handleNavigationChange.bind(this);
   }
+
+  // 'App' 
+   //switch case 1 2 3
+    // generalPage educationPage
+            // generalForm - live
+            // generalList - definitive
+                // list item
+  // CV
+
 
   renderSection() {
     const { section, inputs, currentlyEditing } = this.state;

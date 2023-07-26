@@ -7,7 +7,7 @@ class FormSection extends Component {
     return (
       <Form.Group className="mb-1 w-100" controlId={controlId}>
         <Form.Label>{label}:</Form.Label>
-        <Form.Control
+        <Form.Control   
           value={value}
           required
           onChange={onChange}

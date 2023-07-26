@@ -1,5 +1,5 @@
 import './App.css';
-import UserForm from './components/Form';
+import UserForm from './components/Main';
 import CV from './components/Cv';
 
 function App() {
@@ -11,3 +11,8 @@ function App() {
 }
 
 export default App;
+
+
+// generalList educationList experienceList
+// each - rendering the same generic listITEM component.
+
