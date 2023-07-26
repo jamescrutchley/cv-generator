@@ -2,37 +2,65 @@ import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import FormItem from "../generic/FormItem";
-
+import uniqid from "uniqid";
 
 class EducationForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            inputs: {
-                educationName: "",
-                qualification: "",
-                startDate: "",
-                endDate: "",
-                description: "",
-              },
-        }
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputs: {
+        educationName: "",
+        qualification: "",
+        startDate: "",
+        endDate: "",
+        description: "",
+        id: "",
+      },
+    };
+  }
 
-    handleInputChange = (e) => {
-        console.log(e.target.value)
-        const { name, value } = e.target;
-        this.setState((prevState) => ({
-          inputs: {
-            ...prevState.inputs, // Spread the existing inputs object
-            [name]: value, // Update the specific field with the new value
-          },
-        }));
-      };
+  initial = {
+    inputs: {
+      educationName: "",
+      qualification: "",
+      startDate: "",
+      endDate: "",
+      description: "",
+      id: "",
+    },
+  };
+
+  handleFormSubmit = (e) => {
+    console.log("prev default");
+    e.preventDefault();
+  };
+
+  setInputs = (values = null, reset = false) => {
+    if (reset) {
+      console.log(this.state.inputs);
+      this.setState({
+        inputs: this.initial.inputs,
+      });
+    }
+  };
+
+
+  handleInputChange = (e) => {
+    console.log(e.target.value);
+    const { name, value } = e.target;
+    this.setState((prevState) => ({
+      inputs: {
+        ...prevState.inputs, // Spread the existing inputs object
+        [name]: value, // Update the specific field with the new value
+      },
+    }));
+  };
 
   render() {
-    const { educationName, qualification, startDate, endDate, description } = this.state.inputs;
+    const { educationName, qualification, startDate, endDate, description } =
+      this.state.inputs;
     return (
-      <Form>
+      <Form onSubmit={this.handleFormSubmit}>
         <div className="educationSubsection">
           <FormItem
             controlId="educationName"
@@ -80,13 +108,13 @@ class EducationForm extends Component {
           />
 
           <div>
-              <Button
-                onClick={(e) => this.handleAddEntry("education")}
-                className="w-75 m-3"
-                variant="primary"
-              >
-                Add entry
-              </Button>
+            <Button
+              onClick={(e) => this.handleAddEntry("education")}
+              className="w-75 m-3"
+              variant="primary"
+            >
+              Add entry
+            </Button>
           </div>
         </div>
       </Form>

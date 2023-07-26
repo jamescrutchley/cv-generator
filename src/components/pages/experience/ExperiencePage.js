@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import List from "../List";
 import ExperienceForm from "./ExperienceForm";
+import uniqid from "uniqid";
 
 
 
@@ -13,6 +14,20 @@ class ExperiencePage extends Component {
             currentlyEditing: "",
         }
     }
+
+    handleAddEntry = () => {
+        console.log("adding entry");
+        //validation here.
+        //check if currently editing ID 
+    
+        const newEntry = { ...this.state.inputs, id: uniqid() };
+    
+        console.log(newEntry);
+    
+        this.setInputs(null, true);
+      };
+
+
   render() {
     const { handleNavChange } = this.props;
 

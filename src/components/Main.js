@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Arrow90degDown } from "react-bootstrap-icons";
-import uniqid from "uniqid";
 
 import CV from "./Cv";
 
@@ -83,86 +82,36 @@ class Main extends Component {
     });
   };
 
-  handleFormSubmit = (e) => {
-    e.preventDefault();
-  };
+//   handleUpdateEntry = (entryID, section) => {
+//     const entryIndex =
+//       section === "education"
+//         ? this.state.educationList.findIndex((entry) => entry.id === entryID)
+//         : this.state.experienceList.findIndex((entry) => entry.id === entryID);
 
-  setSectionStateValues = (section, reset = false) => {
-    const initialValues = {
-      education: {
-        educationName: "",
-        qualification: "",
-        startDate: "",
-        endDate: "",
-      },
-      experience: {
-        experienceName: "",
-        role: "",
-        expStartDate: "",
-        expEndDate: "",
-        expDescription: "",
-      },
-    };
-    if (reset) {
-      this.setState((prevState) => ({
-        inputs: {
-          ...prevState.inputs,
-          [section]: initialValues[section],
-        },
-      }));
-    }
-  };
+//     if (entryIndex !== -1) {
+//       const updatedList =
+//         section === "education"
+//           ? [...this.state.educationList]
+//           : [...this.state.experienceList];
 
-  handleUpdateEntry = (entryID, section) => {
-    const entryIndex =
-      section === "education"
-        ? this.state.educationList.findIndex((entry) => entry.id === entryID)
-        : this.state.experienceList.findIndex((entry) => entry.id === entryID);
+//       updatedList[entryIndex] = {
+//         ...updatedList[entryIndex],
+//         ...this.state.inputs[section],
+//       };
 
-    if (entryIndex !== -1) {
-      const updatedList =
-        section === "education"
-          ? [...this.state.educationList]
-          : [...this.state.experienceList];
+//       this.setState(
+//         {
+//           [`${section}List`]: updatedList,
+//           currentlyEditing: "",
+//         },
+//         () => {
+//           this.setSectionStateValues(section, true);
+//         }
+//       );
+//     }
+//   };
 
-      updatedList[entryIndex] = {
-        ...updatedList[entryIndex],
-        ...this.state.inputs[section],
-      };
 
-      this.setState(
-        {
-          [`${section}List`]: updatedList,
-          currentlyEditing: "",
-        },
-        () => {
-          this.setSectionStateValues(section, true);
-        }
-      );
-    }
-  };
-
-  handleAddEntry = (section) => {
-    // validate section elements(??)
-    const targetSection =
-      section === "education"
-        ? this.state.inputs.education
-        : this.state.inputs.experience;
-    const targetList = this.state[`${section}List`];
-
-    const newEntry = { ...targetSection, id: uniqid() };
-
-    const updatedList = [...targetList, newEntry];
-
-    this.setState(
-      {
-        [section + "List"]: updatedList,
-      },
-      () => {
-        this.setSectionStateValues(section, true);
-      }
-    );
-  };
 
   handleEditEntry = (id, section) => {
     this.setState({
