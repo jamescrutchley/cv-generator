@@ -15,16 +15,7 @@ class ExperiencePage extends Component {
         }
     }
   render() {
-    const {
-      experienceName,
-      role,
-      startDate,
-      endDate,
-      currentlyEditing,
-      experienceList,
-      handleNavChange,
-      description,
-    } = this.props;
+    const { handleNavChange } = this.props;
 
     return (
       <>

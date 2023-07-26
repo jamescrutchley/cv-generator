@@ -1,28 +1,23 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import FormSection from "../generic/formItem";
 import List from "../List";
 
 class GeneralPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      info: [],
+      currentlyEditing: "",
+    };
+  }
   render() {
-    const {
-        fname,
-        lname,
-        dob,
-        email,
-        address,
-        mobile,
-        homePhone,
-        handleNavChange
-    } = this.props;
-    const section = 1;
+    const { handleNavChange } = this.props;
     return (
       <>
         <div className="formSection w-100">
           <h2 className="sectionHeader">General Info</h2>
           <div className="generalSection">
-            
-            <List details={['a']} section="General" />
+            <List details={["a"]} section="General" />
           </div>
           <Button
             variant="outline-dark"

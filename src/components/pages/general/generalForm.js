@@ -3,7 +3,22 @@ import { Form } from "react-bootstrap";
 import FormSection from "../generic/formItem";
 
 class GeneralForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            inputs: {
+                fname: "",
+                lname: "",
+                dob: "",
+                email: "",
+                address: "",
+                mobile: "",
+                homePhone: "",
+              }
+        }
+    }
   render() {
+    const { fname, lname, dob, email, address, mobile, homePhone } = this.state.inputs
     return (
       <Form>
         <div className="generalSubsection">
