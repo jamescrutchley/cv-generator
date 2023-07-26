@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import FormSection from "../FormSection";
+import FormSection from "../generic/formItem";
 
 
 class EducationForm extends Component {

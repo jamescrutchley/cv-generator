@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import FormSection from "../FormSection";
+import FormSection from "../generic/formItem";
 import TextareaAutosize from "react-textarea-autosize";
 
 class ExperienceForm extends Component {

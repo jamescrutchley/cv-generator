@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
-import FormSection from "../FormSection";
+import FormSection from "../generic/formItem";
 
 class GeneralForm extends Component {
   render() {

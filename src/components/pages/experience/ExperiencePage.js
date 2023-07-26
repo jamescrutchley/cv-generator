@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import FormSection from "../FormSection";
+import FormSection from "../generic/formItem";
 import List from "../List";
 import TextareaAutosize from "react-textarea-autosize";
 
