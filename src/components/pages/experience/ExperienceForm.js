@@ -67,11 +67,16 @@ class ExperienceForm extends Component {
 
   //just for updating inputs when an item to edit is passed into component
   componentDidUpdate(prevProps) {
+    console.log(this.props.editItem)
+
     if (prevProps.editItem !== this.props.editItem) {
       if (this.props.editItem) {
         this.setInputs(this.props.editItem);
+      } else {
+        this.setInputs(this.initial.inputs)
       }
     }
+
   }
 
   render() {

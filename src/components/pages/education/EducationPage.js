@@ -19,6 +19,17 @@ class EducationPage extends Component {
     });
   };
 
+  handleDeleteEntry = (id) => {
+    const { currentlyEditing } = this.state;
+    const updatedList = this.state.list.filter((item) => item.id !== id);
+
+    this.setState({
+        list: updatedList,
+        currentlyEditing: id === currentlyEditing ? "" : currentlyEditing,
+      });
+
+  };
+
   getItemBeingEditedDetailsForTheFormInputs = (id) => {
     if (id === "")  return null;
     return this.state.list.find((item) => item.id === this.state.currentlyEditing)
@@ -27,7 +38,7 @@ class EducationPage extends Component {
   handleAddEntry = (entry) => {
     // Everything that hits this component is already validated.
 
-    console.log(this.state.list)
+    console.log(this.state.currentlyEditing);
     if (!entry.id) {
       const newEntry = { ...entry, id: uniqid() };
       const updatedList = [...this.state.list, newEntry];
@@ -36,7 +47,6 @@ class EducationPage extends Component {
         list: updatedList,
         currentlyEditing: "",
       });
-
     } else {
       const updatedList = this.state.list.map((item) =>
         item.id === entry.id ? { ...entry } : item
@@ -47,15 +57,17 @@ class EducationPage extends Component {
         currentlyEditing: "",
       });
       //update existing item.
+    }
   };
-}
 
   render() {
     const { handleNavChange } = this.props;
 
     return (
       <>
-        <div className={`${this.props.className} formSection w-100 justify-items-center`}>
+        <div
+          className={`${this.props.className} formSection w-100 justify-items-center`}
+        >
           <h2 className="sectionHeader">Education</h2>
           <Button
             name="back"
@@ -75,7 +87,7 @@ class EducationPage extends Component {
             <List
               allData={this.state.list}
               section="Education"
-              handleUnitRemoval={this.handleRemoveEntry}
+              handleUnitRemoval={this.handleDeleteEntry}
               handleUnitEdit={this.handleEditEntry}
               currentlyEditing={this.state.currentlyEditing}
             />

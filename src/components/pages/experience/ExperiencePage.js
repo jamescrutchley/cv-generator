@@ -19,6 +19,14 @@ class ExperiencePage extends Component {
     });
   };
 
+  handleDeleteEntry = (id) => {
+    const updatedList = this.state.list.filter((item) => item.id !== id);
+
+    this.setState({
+      list: updatedList,
+    });
+  };
+
   // This seems clunky
   getItemBeingEditedDetailsForTheFormInputs = (id) => {
     if (id === "")  return null;
@@ -80,7 +88,7 @@ class ExperiencePage extends Component {
               allData={this.state.list}
               section="Experience"
               handleUnitEdit={this.handleEditEntry}
-              handleUnitRemoval={this.handleRemoveEntry}
+              handleUnitRemoval={this.handleDeleteEntry}
               currentlyEditing={this.state.currentlyEditing !== "" ? this.state.currentlyEditing : null}
             />
           </div>

@@ -20,7 +20,7 @@ class ListItem extends Component {
     return (
       <div className="listUnit">
         <div className="listUnitButtons">
-          <button className="border-0" onClick={() => methods.edit()}>
+          <button className="border-0" onClick={() => methods.remove(data.id)}>
             <Trash />
           </button>
           <button
