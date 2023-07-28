@@ -8,9 +8,16 @@ class GeneralPage extends Component {
     super(props);
     this.state = {
       info: [],
-      currentlyEditing: "",
     };
   }
+
+  handleAddInfo = (newInfo) => {
+    this.setState({
+        info: newInfo
+    })
+  }
+
+
   render() {
     const { handleNavChange } = this.props;
     return (
@@ -18,8 +25,12 @@ class GeneralPage extends Component {
         <div className={`formSection ${this.props.className}`}>
           <h2 className="sectionHeader">General Info</h2>
           <div className="generalSection">
-            <GeneralForm/>
-            <List details={["a"]} section="General" />
+            <GeneralForm
+            addInfoMethod={this.handleAddInfo}/>
+            <div className="list">
+                
+            </div>
+
           </div>
           <Button
             variant="outline-dark"

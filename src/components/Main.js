@@ -11,7 +11,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      section: 3,
+      section: 1,
     };
     this.handleNavigationChange = this.handleNavigationChange.bind(this);
   }

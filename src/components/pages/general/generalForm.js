@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import FormItem from "../generic/FormItem";
+import Button from "react-bootstrap/Button";
 
 class GeneralForm extends Component {
   constructor(props) {
@@ -16,6 +17,12 @@ class GeneralForm extends Component {
         homePhone: "",
       },
     };
+  }
+
+  trySubmitInfo = () => {
+    //validation then
+
+    this.props.addInfoMethod(this.state.inputs);
   }
 
   handleInputChange = (e) => {
@@ -103,6 +110,15 @@ class GeneralForm extends Component {
             isInvalid={null}
             feedback=""
           />
+          <div>
+            <Button
+              onClick={() => this.trySubmitInfo()}
+              className="w-75 m-3"
+              variant="primary"
+            >
+              Add Info
+            </Button>
+          </div>
         </div>
       </Form>
     );
