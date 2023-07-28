@@ -29,9 +29,7 @@ class Main extends Component {
     const { experienceName, role, expStartDate, expEndDate, expDescription } =
       experienceInputs;
     return (
-      <div
-        className="myForm"
-      >
+      <div className="myForm">
         <div id="nav-dots" className="nav-dots">
           <div className={section === 1 ? "filled" : null} data-id="1"></div>
           <div className={section === 2 ? "filled" : null} data-id="2"></div>
@@ -79,11 +77,8 @@ class Main extends Component {
   };
 
   render() {
-    const { section } = this.state;
-
     return (
       <div className="main">
-
         {this.renderSection()}
 
         <div className="appHeader">

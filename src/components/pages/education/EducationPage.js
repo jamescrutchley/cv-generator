@@ -24,16 +24,17 @@ class EducationPage extends Component {
     const updatedList = this.state.list.filter((item) => item.id !== id);
 
     this.setState({
-        list: updatedList,
-        currentlyEditing: id === currentlyEditing ? "" : currentlyEditing,
-      });
-
+      list: updatedList,
+      currentlyEditing: id === currentlyEditing ? "" : currentlyEditing,
+    });
   };
 
   getItemBeingEditedDetailsForTheFormInputs = (id) => {
-    if (id === "")  return null;
-    return this.state.list.find((item) => item.id === this.state.currentlyEditing)
-  }
+    if (id === "") return null;
+    return this.state.list.find(
+      (item) => item.id === this.state.currentlyEditing
+    );
+  };
 
   handleAddEntry = (entry) => {
     // Everything that hits this component is already validated.
@@ -81,7 +82,9 @@ class EducationPage extends Component {
             <EducationForm
               addEntryMethod={this.handleAddEntry}
               editEntryMethod={this.handleEditEntry}
-              editItem={this.getItemBeingEditedDetailsForTheFormInputs(this.state.currentlyEditing)}
+              editItem={this.getItemBeingEditedDetailsForTheFormInputs(
+                this.state.currentlyEditing
+              )}
             />
 
             <List
