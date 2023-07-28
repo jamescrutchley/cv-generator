@@ -93,7 +93,6 @@ class ExperienceForm extends Component {
             type="text"
             placeholder="Microsoft"
             onChange={(e) => this.handleInputChange(e)}
-            isInvalid={experienceName === ""}
             feedback="Please fill out this field."
           />
           <FormItem
@@ -104,7 +103,6 @@ class ExperienceForm extends Component {
             type="text"
             placeholder="Account Manager"
             onChange={(e) => this.handleInputChange(e)}
-            isInvalid={role === ""}
             feedback="Please fill out this field."
           />
           <FormItem

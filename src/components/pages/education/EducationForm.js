@@ -91,7 +91,6 @@ componentDidUpdate(prevProps) {
             type="text"
             placeholder="Harvard Medical School"
             onChange={(e) => this.handleInputChange(e)}
-            isInvalid={educationName === ""}
             feedback="Please fill out this field."
           />
           <FormItem
@@ -102,7 +101,6 @@ componentDidUpdate(prevProps) {
             type="text"
             placeholder="Bachelor of Commerce"
             onChange={(e) => this.handleInputChange(e)}
-            isInvalid={qualification === ""}
             feedback="Please fill out this field."
           />
           <FormItem
