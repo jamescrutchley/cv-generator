@@ -6,57 +6,6 @@ class List extends Component {
   render() {
     const { details, section, currentlyEditing, handleUnitRemoval, handleUnitEdit } = this.props;
 
-    if (section === "General") {
-      return (
-        <div className="generalList">
-          <h4>Your details:</h4>
-          {/* ...will always map exactly one item... */}
-          {details.map((item, index) => (
-            <div className="listUnit general" key={index}>
-              <p>
-                <strong>
-                  <el>Name: </el>
-                </strong>
-                <em>
-                  {item.fname} {item.lname}
-                </em>
-              </p>
-              <p>
-                <strong>
-                  <el>D/O/B: </el>
-                </strong>
-                <em>{item.dob}</em>
-              </p>
-              <p>
-                <strong>
-                  <el>Email: </el>
-                </strong>
-                {item.email}
-              </p>
-              <p>
-                <strong>
-                  <el>Address: </el>
-                </strong>
-                {item.address}
-              </p>
-              <p>
-                <strong>
-                  <el>Mobile: </el>
-                </strong>
-                {item.mobile}
-              </p>
-              <p>
-                <strong>
-                  <el>Home Phone: </el>
-                </strong>
-                {item.homePhone}
-              </p>
-            </div>
-          ))}
-        </div>
-      );
-    }
-
     return (
         //if / else
       <div className="list">

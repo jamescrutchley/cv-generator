@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import List from "../List";
 import GeneralForm from "./generalForm";
+import ListItem from "../generic/listItem";
 
 class GeneralPage extends Component {
   constructor(props) {
@@ -13,10 +14,9 @@ class GeneralPage extends Component {
 
   handleAddInfo = (newInfo) => {
     this.setState({
-        info: newInfo
-    })
-  }
-
+      info: newInfo,
+    });
+  };
 
   render() {
     const { handleNavChange } = this.props;
@@ -25,12 +25,13 @@ class GeneralPage extends Component {
         <div className={`formSection ${this.props.className}`}>
           <h2 className="sectionHeader">General Info</h2>
           <div className="generalSection">
-            <GeneralForm
-            addInfoMethod={this.handleAddInfo}/>
-            <div className="list">
-                
+            <GeneralForm addInfoMethod={this.handleAddInfo} />
+            <div className="list generalList">
+              <h3>Your Info:</h3>
+              <div className="listUnit">
+                <ListItem data={this.state.info} />
+              </div>
             </div>
-
           </div>
           <Button
             variant="outline-dark"

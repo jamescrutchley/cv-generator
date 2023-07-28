@@ -361,3 +361,27 @@ div.active {
     display: none;
 }
 
+.generalList .listUnit {
+    display: flex;
+    align-items: flex-start;
+    background-color: transparent;
+    height: fit-content;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    width: 100%;
+}
+
+.generalList p {
+    text-align: left;
+    word-break: break-all;
+}
+
+.generalList:nth-child(2), .generalList:first-child {
+    display: inline;
+    flex-wrap: wrap; 
+}
+
+.generalList {
+    width: 100%;
+}
+
