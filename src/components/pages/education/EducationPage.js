@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import List from "../List";
 import EducationForm from "./EducationForm";
+import uniqid from "uniqid";
 
 class EducationPage extends Component {
   constructor(props) {
@@ -11,6 +12,44 @@ class EducationPage extends Component {
       currentlyEditing: "",
     };
   }
+
+  handleEditEntry = (id) => {
+    this.setState({
+      currentlyEditing: id,
+    });
+  };
+
+  getItemBeingEditedDetailsForTheFormInputs = (id) => {
+    if (id === "")  return null;
+    return this.state.list.find((item) => item.id === this.state.currentlyEditing)
+  }
+
+  handleAddEntry = (entry) => {
+    // Everything that hits this component is already validated.
+
+    console.log(this.state.list)
+    if (!entry.id) {
+      const newEntry = { ...entry, id: uniqid() };
+      const updatedList = [...this.state.list, newEntry];
+
+      this.setState({
+        list: updatedList,
+        currentlyEditing: "",
+      });
+
+    } else {
+      const updatedList = this.state.list.map((item) =>
+        item.id === entry.id ? { ...entry } : item
+      );
+
+      this.setState({
+        list: updatedList,
+        currentlyEditing: "",
+      });
+      //update existing item.
+  };
+}
+
   render() {
     const { handleNavChange } = this.props;
 
@@ -27,8 +66,11 @@ class EducationPage extends Component {
             ←
           </Button>
           <div className="educationSection d-grid">
-            
-            <EducationForm/>
+            <EducationForm
+              addEntryMethod={this.handleAddEntry}
+              editEntryMethod={this.handleEditEntry}
+              editItem={this.getItemBeingEditedDetailsForTheFormInputs(this.state.currentlyEditing)}
+            />
 
             <List
               details={this.state.list}

@@ -11,7 +11,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      section: 1,
+      section: 3,
     };
     this.handleNavigationChange = this.handleNavigationChange.bind(this);
   }
@@ -113,35 +113,35 @@ class Main extends Component {
 
 
 
-  handleEditEntry = (id, section) => {
-    this.setState({
-      currentlyEditing: id,
-    });
+//   handleEditEntry = (id, section) => {
+//     this.setState({
+//       currentlyEditing: id,
+//     });
 
-    let entryKeys;
-    const targetList =
-      section === "education"
-        ? this.state.educationList
-        : this.state.experienceList;
+//     let entryKeys;
+//     const targetList =
+//       section === "education"
+//         ? this.state.educationList
+//         : this.state.experienceList;
 
-    const selectedEntry = targetList.find((entry) => entry.id === id);
+//     const selectedEntry = targetList.find((entry) => entry.id === id);
 
-    if (selectedEntry) {
-      entryKeys = Object.keys(selectedEntry);
-    }
+//     if (selectedEntry) {
+//       entryKeys = Object.keys(selectedEntry);
+//     }
 
-    const newInputValues = entryKeys.reduce((acc, key) => {
-      acc[key] = selectedEntry[key];
-      return acc;
-    }, {});
+//     const newInputValues = entryKeys.reduce((acc, key) => {
+//       acc[key] = selectedEntry[key];
+//       return acc;
+//     }, {});
 
-    this.setState((prevState) => ({
-      inputs: {
-        ...prevState.inputs,
-        [section.toLowerCase()]: newInputValues,
-      },
-    }));
-  };
+//     this.setState((prevState) => ({
+//       inputs: {
+//         ...prevState.inputs,
+//         [section.toLowerCase()]: newInputValues,
+//       },
+//     }));
+//   };
 
   handleRemoveEntry = (id, section) => {
     if (id === this.state.currentlyEditing) {

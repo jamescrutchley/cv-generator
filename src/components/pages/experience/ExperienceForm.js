@@ -3,8 +3,6 @@ import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import FormItem from "../generic/FormItem";
 import TextareaAutosize from "react-textarea-autosize";
-import uniqid from "uniqid";
-
 
 class ExperienceForm extends Component {
   constructor(props) {
@@ -16,6 +14,7 @@ class ExperienceForm extends Component {
         startDate: "",
         endDate: "",
         description: "",
+        id: "",
       },
     };
   }
@@ -27,31 +26,36 @@ class ExperienceForm extends Component {
       startDate: "",
       endDate: "",
       description: "",
+      id: "",
     },
   };
 
-  setInputs = (values = null, reset = false) => {
-    if (reset) {
-      console.log(this.state.inputs);
+  setInputs = (values) => {
       this.setState({
-        inputs: this.initial.inputs,
+        inputs: values,
       });
-    }
   };
 
-  handleAddEntry = () => {
-    console.log("adding entry");
-    //validation here.
+  trySubmitEntry = () => {
+    //validation method here.
 
-    const newEntry = { ...this.state.inputs, id: uniqid() };
+    //if editing an existing item, call addentry method with
+        // updated inputs but same ID.
+    if (this.props.editItem) {
+      this.props.addEntryMethod({
+        ...this.state.inputs,
+        id: this.props.editItem.id,
+      });
+      //else provide no ID.
+    } else {
+      this.props.addEntryMethod({ ...this.state.inputs, id: null });
+    }
 
-    console.log(newEntry);
-
-    this.setInputs(null, true);
+    //reset inputs.
+    this.setInputs(this.initial.inputs);
   };
 
   handleInputChange = (e) => {
-    console.log(e.target.value);
     const { name, value } = e.target;
     this.setState((prevState) => ({
       inputs: {
@@ -60,6 +64,15 @@ class ExperienceForm extends Component {
       },
     }));
   };
+
+  //just for updating inputs when an item to edit is passed into component
+  componentDidUpdate(prevProps) {
+    if (prevProps.editItem !== this.props.editItem) {
+      if (this.props.editItem) {
+        this.setInputs(this.props.editItem);
+      }
+    }
+  }
 
   render() {
     const { experienceName, role, startDate, endDate, description } =
@@ -74,7 +87,7 @@ class ExperienceForm extends Component {
             value={experienceName}
             type="text"
             placeholder="Microsoft"
-            onChange={(e) => this.handleInputChange(e, "experience")}
+            onChange={(e) => this.handleInputChange(e)}
             isInvalid={experienceName === ""}
             feedback="Please fill out this field."
           />
@@ -85,47 +98,47 @@ class ExperienceForm extends Component {
             value={role}
             type="text"
             placeholder="Account Manager"
-            onChange={(e) => this.handleInputChange(e, "experience")}
+            onChange={(e) => this.handleInputChange(e)}
             isInvalid={role === ""}
             feedback="Please fill out this field."
           />
           <FormItem
-            controlId="expStartDate"
+            controlId="startDate"
             label="Start Date"
-            name="expStartDate"
+            name="startDate"
             value={startDate}
             type="date"
             placeholder=""
-            onChange={(e) => this.handleInputChange(e, "experience")}
+            onChange={(e) => this.handleInputChange(e)}
             isInvalid={null}
             feedback="Please fill out this field."
           />
           <FormItem
-            controlId="expEndDate"
+            controlId="endDate"
             label="End Date"
-            name="expEndDate"
+            name="endDate"
             value={endDate}
             type="date"
             placeholder=""
-            onChange={(e) => this.handleInputChange(e, "experience")}
+            onChange={(e) => this.handleInputChange(e)}
             isInvalid={null}
             feedback="Please fill out this field."
           />
 
           <TextareaAutosize
             className="mb-1 w-100 textarea"
-            controlId="expDescription"
+            controlId="description"
             label="Description"
-            name="expDescription"
+            name="description"
             value={description}
             placeholder="Describe your experience in this role."
-            onChange={(e) => this.handleInputChange(e, "experience")}
+            onChange={(e) => this.handleInputChange(e)}
             isInvalid={null}
             feedback=""
           />
           <div>
             <Button
-              onClick={(e) => this.handleAddEntry("experience")}
+              onClick={() => this.trySubmitEntry()}
               className="w-75 m-3"
               variant="primary"
             >

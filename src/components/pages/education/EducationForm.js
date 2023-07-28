@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import FormItem from "../generic/FormItem";
-import uniqid from "uniqid";
 
 class EducationForm extends Component {
   constructor(props) {
@@ -30,33 +29,52 @@ class EducationForm extends Component {
     },
   };
 
-  handleFormSubmit = (e) => {
-    console.log("prev default");
-    e.preventDefault();
-  };
+  setInputs = (values) => {
+    this.setState({
+      inputs: values,
+    });
+};
 
-  setInputs = (values = null, reset = false) => {
-    if (reset) {
-      console.log(this.state.inputs);
-      this.setState({
-        inputs: this.initial.inputs,
-      });
+trySubmitEntry = () => {
+  //validation method here.
+
+  //if editing an existing item, call addentry method with
+      // updated inputs but same ID.
+  if (this.props.editItem) {
+    this.props.addEntryMethod({
+      ...this.state.inputs,
+      id: this.props.editItem.id,
+    });
+    //else provide no ID.
+  } else {
+    this.props.addEntryMethod({ ...this.state.inputs, id: null });
+  }
+
+  //reset inputs.
+  this.setInputs(this.initial.inputs);
+};
+
+handleInputChange = (e) => {
+  const { name, value } = e.target;
+  this.setState((prevState) => ({
+    inputs: {
+      ...prevState.inputs, // Spread the existing inputs object
+      [name]: value, // Update the specific field with the new value
+    },
+  }));
+};
+
+//just for updating inputs when an item to edit is passed into component
+componentDidUpdate(prevProps) {
+  if (prevProps.editItem !== this.props.editItem) {
+    if (this.props.editItem) {
+      this.setInputs(this.props.editItem);
     }
-  };
-
-
-  handleInputChange = (e) => {
-    console.log(e.target.value);
-    const { name, value } = e.target;
-    this.setState((prevState) => ({
-      inputs: {
-        ...prevState.inputs, // Spread the existing inputs object
-        [name]: value, // Update the specific field with the new value
-      },
-    }));
-  };
+  }
+}
 
   render() {
+    // if (this.props.id)
     const { educationName, qualification, startDate, endDate, description } =
       this.state.inputs;
     return (
@@ -69,7 +87,7 @@ class EducationForm extends Component {
             value={educationName}
             type="text"
             placeholder="Harvard Medical School"
-            onChange={(e) => this.handleInputChange(e, "education")}
+            onChange={(e) => this.handleInputChange(e)}
             isInvalid={educationName === ""}
             feedback="Please fill out this field."
           />
@@ -80,7 +98,7 @@ class EducationForm extends Component {
             value={qualification}
             type="text"
             placeholder="Bachelor of Commerce"
-            onChange={(e) => this.handleInputChange(e, "education")}
+            onChange={(e) => this.handleInputChange(e)}
             isInvalid={qualification === ""}
             feedback="Please fill out this field."
           />
@@ -91,7 +109,7 @@ class EducationForm extends Component {
             value={startDate}
             type="date"
             placeholder=""
-            onChange={(e) => this.handleInputChange(e, "education")}
+            onChange={(e) => this.handleInputChange(e)}
             isInvalid={null}
             feedback="Ensure start date is valid"
           />
@@ -102,14 +120,14 @@ class EducationForm extends Component {
             value={endDate}
             type="date"
             placeholder=""
-            onChange={(e) => this.handleInputChange(e, "education")}
+            onChange={(e) => this.handleInputChange(e)}
             isInvalid={null}
             feedback="Ensure end date is valid"
           />
 
           <div>
             <Button
-              onClick={(e) => this.handleAddEntry("education")}
+              onClick={() => this.trySubmitEntry()}
               className="w-75 m-3"
               variant="primary"
             >
