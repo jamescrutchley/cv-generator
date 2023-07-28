@@ -55,7 +55,7 @@ class EducationPage extends Component {
 
     return (
       <>
-        <div className="formItem w-100 justify-items-center">
+        <div className={`${this.props.className} formSection w-100 justify-items-center`}>
           <h2 className="sectionHeader">Education</h2>
           <Button
             name="back"

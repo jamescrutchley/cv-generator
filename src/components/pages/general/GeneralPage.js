@@ -15,7 +15,7 @@ class GeneralPage extends Component {
     const { handleNavChange } = this.props;
     return (
       <>
-        <div className="formItem w-100">
+        <div className={`formSection ${this.props.className}`}>
           <h2 className="sectionHeader">General Info</h2>
           <div className="generalSection">
             <GeneralForm/>

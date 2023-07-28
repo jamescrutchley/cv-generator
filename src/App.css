@@ -183,7 +183,7 @@
     background-color: lightgreen !important;
 }
 
-.formItem {
+.formSection {
     font-size: 14px;
     height: fit-content;
     justify-items: center;
@@ -348,6 +348,16 @@
     border-radius: 100%;
 }
 
-.active {
+button.active {
     background-color: rgb(148, 255, 148);
 }
+
+
+div.active {
+    display: grid;
+}
+
+.hidden {
+    display: none;
+}
+

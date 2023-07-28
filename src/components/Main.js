@@ -21,58 +21,54 @@ class Main extends Component {
     const generalInputs = inputs?.general || {};
     const educationInputs = inputs?.education || {};
     const experienceInputs = inputs?.experience || {};
-    switch (section) {
-      case 1:
-        const { fname, lname, dob, email, address, mobile, homePhone } =
-          generalInputs;
-        return (
-          <GeneralPage
-            fname={fname}
-            lname={lname}
-            dob={dob}
-            email={email}
-            address={address}
-            mobile={mobile}
-            homePhone={homePhone}
-            handleNavChange={this.handleNavigationChange}
-          />
-        );
-      case 2:
-        const { educationName, qualification, startDate, endDate } =
-          educationInputs;
-        return (
-          <EducationPage
-            educationList={this.state.educationList}
-            educationName={educationName}
-            qualification={qualification}
-            startDate={startDate}
-            endDate={endDate}
-            handleNavChange={this.handleNavigationChange}
-          />
-        );
-      case 3:
-        const {
-          experienceName,
-          role,
-          expStartDate,
-          expEndDate,
-          expDescription,
-        } = experienceInputs;
-        return (
-          <ExperiencePage
-            experienceList={this.state.experienceList}
-            experienceName={experienceName}
-            role={role}
-            startDate={expStartDate}
-            endDate={expEndDate}
-            description={expDescription}
-            handleNavChange={this.handleNavigationChange}
-          />
-        );
 
-      default:
-        return null;
-    }
+    const { fname, lname, dob, email, address, mobile, homePhone } =
+      generalInputs;
+    const { educationName, qualification, startDate, endDate } =
+      educationInputs;
+    const { experienceName, role, expStartDate, expEndDate, expDescription } =
+      experienceInputs;
+    return (
+      <div
+        className="myForm"
+      >
+        <div id="nav-dots" className="nav-dots">
+          <div className={section === 1 ? "filled" : null} data-id="1"></div>
+          <div className={section === 2 ? "filled" : null} data-id="2"></div>
+          <div className={section === 3 ? "filled" : null} data-id="3"></div>
+        </div>
+        <GeneralPage
+          className={section === 1 ? "active" : "hidden"}
+          fname={fname}
+          lname={lname}
+          dob={dob}
+          email={email}
+          address={address}
+          mobile={mobile}
+          homePhone={homePhone}
+          handleNavChange={this.handleNavigationChange}
+        />
+        <EducationPage
+          className={section === 2 ? "active" : "hidden"}
+          educationList={this.state.educationList}
+          educationName={educationName}
+          qualification={qualification}
+          startDate={startDate}
+          endDate={endDate}
+          handleNavChange={this.handleNavigationChange}
+        />
+        <ExperiencePage
+          className={section === 3 ? "active" : "hidden"}
+          experienceList={this.state.experienceList}
+          experienceName={experienceName}
+          role={role}
+          startDate={expStartDate}
+          endDate={expEndDate}
+          description={expDescription}
+          handleNavChange={this.handleNavigationChange}
+        />
+      </div>
+    );
   }
 
   handleNavigationChange = (whereTo) => {
@@ -82,105 +78,13 @@ class Main extends Component {
     });
   };
 
-//   handleUpdateEntry = (entryID, section) => {
-//     const entryIndex =
-//       section === "education"
-//         ? this.state.educationList.findIndex((entry) => entry.id === entryID)
-//         : this.state.experienceList.findIndex((entry) => entry.id === entryID);
-
-//     if (entryIndex !== -1) {
-//       const updatedList =
-//         section === "education"
-//           ? [...this.state.educationList]
-//           : [...this.state.experienceList];
-
-//       updatedList[entryIndex] = {
-//         ...updatedList[entryIndex],
-//         ...this.state.inputs[section],
-//       };
-
-//       this.setState(
-//         {
-//           [`${section}List`]: updatedList,
-//           currentlyEditing: "",
-//         },
-//         () => {
-//           this.setSectionStateValues(section, true);
-//         }
-//       );
-//     }
-//   };
-
-
-
-//   handleEditEntry = (id, section) => {
-//     this.setState({
-//       currentlyEditing: id,
-//     });
-
-//     let entryKeys;
-//     const targetList =
-//       section === "education"
-//         ? this.state.educationList
-//         : this.state.experienceList;
-
-//     const selectedEntry = targetList.find((entry) => entry.id === id);
-
-//     if (selectedEntry) {
-//       entryKeys = Object.keys(selectedEntry);
-//     }
-
-//     const newInputValues = entryKeys.reduce((acc, key) => {
-//       acc[key] = selectedEntry[key];
-//       return acc;
-//     }, {});
-
-//     this.setState((prevState) => ({
-//       inputs: {
-//         ...prevState.inputs,
-//         [section.toLowerCase()]: newInputValues,
-//       },
-//     }));
-//   };
-
-  handleRemoveEntry = (id, section) => {
-    if (id === this.state.currentlyEditing) {
-      this.setState(
-        {
-          currentlyEditing: "",
-        },
-        () => {
-          this.setSectionStateValues(section, true);
-        }
-      );
-    }
-
-    const targetList =
-      section === "education"
-        ? this.state.educationList
-        : this.state.experienceList;
-
-    const updatedList = targetList.filter((entry) => entry.id !== id);
-
-    this.setState({
-      [`${section}List`]: updatedList,
-    });
-  };
-
   render() {
-    const { valid, section, inputs, experienceList, educationList } =
-      this.state;
+    const { section } = this.state;
 
     return (
       <div className="main">
-        <div className="myForm">
-          <div id="nav-dots" className="nav-dots">
-            <div className={section === 1 ? "filled" : null} data-id="1"></div>
-            <div className={section === 2 ? "filled" : null} data-id="2"></div>
-            <div className={section === 3 ? "filled" : null} data-id="3"></div>
-          </div>
-          {this.renderSection()}
-        </div>
+
+        {this.renderSection()}
 
         <div className="appHeader">
           <div className="header-left">

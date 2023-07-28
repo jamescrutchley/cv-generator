@@ -57,7 +57,7 @@ class ExperiencePage extends Component {
 
     return (
       <>
-        <div className="formItem w-100">
+        <div className={`formSection ${this.props.className}`}>
           <h2 className="sectionHeader">Experience</h2>
           <Button
             name="back"
