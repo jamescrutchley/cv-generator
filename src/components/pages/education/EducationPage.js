@@ -73,7 +73,7 @@ class EducationPage extends Component {
             />
 
             <List
-              details={this.state.list}
+              allData={this.state.list}
               section="Education"
               handleUnitRemoval={this.handleRemoveEntry}
               handleUnitEdit={this.handleEditEntry}

@@ -77,7 +77,7 @@ class ExperiencePage extends Component {
 
             {/* Current list */}
             <List
-              details={this.state.list}
+              allData={this.state.list}
               section="Experience"
               handleUnitEdit={this.handleEditEntry}
               handleUnitRemoval={this.handleRemoveEntry}

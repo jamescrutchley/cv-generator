@@ -3,44 +3,38 @@ import { Trash, Pen } from "react-bootstrap-icons";
 
 class ListItem extends Component {
   render() {
-    const { methods, data } = this.props;
+    const { methods, data, currentlyEditing } = this.props;
 
-    let values = Object.values(data).filter((item) => item !== "");
+    const { id, ...dataWithoutId } = data;
+    let valuestoRender = Object.values(dataWithoutId).filter(
+      (item) => item !== ""
+    );
 
-    // no methods - must be for general info.
+    // for general info - no methods necessary.
     if (!methods) {
-      return values.map((value, index) => {
+      return valuestoRender.map((value, index) => {
         return <p key={index}>{value}</p>;
       });
     }
 
     return (
-      <div className="listUnit" key={index}>
+      <div className="listUnit">
         <div className="listUnitButtons">
-          <button
-            className="border-0"
-            onClick={() => handleUnitRemoval(item.id, section.toLowerCase())}
-          >
+          <button className="border-0" onClick={() => methods.edit()}>
             <Trash />
           </button>
           <button
             className={
-              currentlyEditing === item.id ? "active editButton" : "editButton"
+              currentlyEditing === data.id ? "active editButton" : "editButton"
             }
-            onClick={() => handleUnitEdit(item.id, section.toLowerCase())}
+            onClick={() => methods.edit(data.id)}
           >
             <Pen />
           </button>
         </div>
-        <p>
-          <strong>{item.educationName || item.experienceName}</strong>
-        </p>
-        <em> {item.qualification || item.role}</em>
-        <p>
-          {item.startDate || item.expStartDate} -{" "}
-          {item.endDate || item.expEndDate}
-        </p>
-        <p className="unitDescription">{item.expDescription}</p>
+        {valuestoRender.map((value, index) => (
+          <p key={index}>{value}</p>
+        ))}
       </div>
     );
   }

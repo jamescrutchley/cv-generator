@@ -26,7 +26,6 @@ class GeneralForm extends Component {
   }
 
   handleInputChange = (e) => {
-    console.log(e.target.value)
     const { name, value } = e.target;
     this.setState((prevState) => ({
       inputs: {

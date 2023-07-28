@@ -27,7 +27,7 @@ class GeneralPage extends Component {
           <div className="generalSection">
             <GeneralForm addInfoMethod={this.handleAddInfo} />
             <div className="list generalList">
-              <h3>Your Info:</h3>
+              <h4>Your Info:</h4>
               <div className="listUnit">
                 <ListItem data={this.state.info} />
               </div>
