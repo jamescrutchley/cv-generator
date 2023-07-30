@@ -17,17 +17,8 @@ class Main extends Component {
   }
 
   renderSection() {
-    const { section, inputs } = this.state;
-    const generalInputs = inputs?.general || {};
-    const educationInputs = inputs?.education || {};
-    const experienceInputs = inputs?.experience || {};
+    const { section } = this.state;
 
-    const { fname, lname, dob, email, address, mobile, homePhone } =
-      generalInputs;
-    const { educationName, qualification, startDate, endDate } =
-      educationInputs;
-    const { experienceName, role, expStartDate, expEndDate, expDescription } =
-      experienceInputs;
     return (
       <div className="myForm">
         <div id="nav-dots" className="nav-dots">
@@ -37,32 +28,14 @@ class Main extends Component {
         </div>
         <GeneralPage
           className={section === 1 ? "active" : "hidden"}
-          fname={fname}
-          lname={lname}
-          dob={dob}
-          email={email}
-          address={address}
-          mobile={mobile}
-          homePhone={homePhone}
           handleNavChange={this.handleNavigationChange}
         />
         <EducationPage
           className={section === 2 ? "active" : "hidden"}
-          educationList={this.state.educationList}
-          educationName={educationName}
-          qualification={qualification}
-          startDate={startDate}
-          endDate={endDate}
           handleNavChange={this.handleNavigationChange}
         />
         <ExperiencePage
           className={section === 3 ? "active" : "hidden"}
-          experienceList={this.state.experienceList}
-          experienceName={experienceName}
-          role={role}
-          startDate={expStartDate}
-          endDate={expEndDate}
-          description={expDescription}
           handleNavChange={this.handleNavigationChange}
         />
       </div>

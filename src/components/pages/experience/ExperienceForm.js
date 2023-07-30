@@ -31,16 +31,16 @@ class ExperienceForm extends Component {
   };
 
   setInputs = (values) => {
-      this.setState({
-        inputs: values,
-      });
+    this.setState({
+      inputs: values,
+    });
   };
 
   trySubmitEntry = () => {
     //validation method here.
 
     //if editing an existing item, call addentry method with
-        // updated inputs but same ID.
+    // updated inputs but same ID.
     if (this.props.editItem) {
       this.props.addEntryMethod({
         ...this.state.inputs,
@@ -67,16 +67,13 @@ class ExperienceForm extends Component {
 
   //just for updating inputs when an item to edit is passed into component
   componentDidUpdate(prevProps) {
-    console.log(this.props.editItem)
-
     if (prevProps.editItem !== this.props.editItem) {
       if (this.props.editItem) {
         this.setInputs(this.props.editItem);
       } else {
-        this.setInputs(this.initial.inputs)
+        this.setInputs(this.initial.inputs);
       }
     }
-
   }
 
   render() {

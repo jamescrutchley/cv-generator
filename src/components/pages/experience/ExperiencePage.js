@@ -29,14 +29,15 @@ class ExperiencePage extends Component {
 
   // This seems clunky
   getItemBeingEditedDetailsForTheFormInputs = (id) => {
-    if (id === "")  return null;
-    return this.state.list.find((item) => item.id === this.state.currentlyEditing)
-  }
+    if (id === "") return null;
+    return this.state.list.find(
+      (item) => item.id === this.state.currentlyEditing
+    );
+  };
 
   handleAddEntry = (entry) => {
     // Everything that hits this component is already validated.
 
-    console.log(this.state.list)
     if (!entry.id) {
       const newEntry = { ...entry, id: uniqid() };
       const updatedList = [...this.state.list, newEntry];
@@ -45,7 +46,6 @@ class ExperiencePage extends Component {
         list: updatedList,
         currentlyEditing: "",
       });
-
     } else {
       const updatedList = this.state.list.map((item) =>
         item.id === entry.id ? { ...entry } : item
@@ -57,7 +57,6 @@ class ExperiencePage extends Component {
       });
       //update existing item.
     }
-
   };
 
   render() {
@@ -79,8 +78,9 @@ class ExperiencePage extends Component {
             <ExperienceForm
               addEntryMethod={this.handleAddEntry}
               editEntryMethod={this.handleEditEntry}
-              editItem={this.getItemBeingEditedDetailsForTheFormInputs(this.state.currentlyEditing)}
-              
+              editItem={this.getItemBeingEditedDetailsForTheFormInputs(
+                this.state.currentlyEditing
+              )}
             />
 
             {/* Current list */}
@@ -89,7 +89,11 @@ class ExperiencePage extends Component {
               section="Experience"
               handleUnitEdit={this.handleEditEntry}
               handleUnitRemoval={this.handleDeleteEntry}
-              currentlyEditing={this.state.currentlyEditing !== "" ? this.state.currentlyEditing : null}
+              currentlyEditing={
+                this.state.currentlyEditing !== ""
+                  ? this.state.currentlyEditing
+                  : null
+              }
             />
           </div>
         </div>

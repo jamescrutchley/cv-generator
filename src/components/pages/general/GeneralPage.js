@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import List from "../List";
 import GeneralForm from "./generalForm";
 import ListItem from "../generic/listItem";
 

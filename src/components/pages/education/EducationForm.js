@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import FormItem from "../generic/FormItem";
+import TextareaAutosize from "react-textarea-autosize";
 
 class EducationForm extends Component {
   constructor(props) {
@@ -33,48 +34,46 @@ class EducationForm extends Component {
     this.setState({
       inputs: values,
     });
-};
+  };
 
-trySubmitEntry = () => {
-  //validation method here.
+  trySubmitEntry = () => {
+    //validation method here.
 
-  //if editing an existing item, call addentry method with
-      // updated inputs but same ID.
-  if (this.props.editItem) {
-    this.props.addEntryMethod({
-      ...this.state.inputs,
-      id: this.props.editItem.id,
-    });
-    //else provide no ID.
-  } else {
-    this.props.addEntryMethod({ ...this.state.inputs, id: null });
-  }
-
-  //reset inputs.
-  this.setInputs(this.initial.inputs);
-};
-
-handleInputChange = (e) => {
-  const { name, value } = e.target;
-  this.setState((prevState) => ({
-    inputs: {
-      ...prevState.inputs, // Spread the existing inputs object
-      [name]: value, // Update the specific field with the new value
-    },
-  }));
-};
-
-//just for updating inputs when an item to edit is passed into component
-componentDidUpdate(prevProps) {
-    console.log(this.props.editItem)
-  if (prevProps.editItem !== this.props.editItem) {
+    //if editing an existing item, call addentry method with
+    // updated inputs but same ID.
     if (this.props.editItem) {
-      this.setInputs(this.props.editItem);
+      this.props.addEntryMethod({
+        ...this.state.inputs,
+        id: this.props.editItem.id,
+      });
+      //else provide no ID.
     } else {
-        this.setInputs(this.initial.inputs)
+      this.props.addEntryMethod({ ...this.state.inputs, id: null });
+    }
+
+    //reset inputs.
+    this.setInputs(this.initial.inputs);
+  };
+
+  handleInputChange = (e) => {
+    const { name, value } = e.target;
+    this.setState((prevState) => ({
+      inputs: {
+        ...prevState.inputs, // Spread the existing inputs object
+        [name]: value, // Update the specific field with the new value
+      },
+    }));
+  };
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.editItem !== this.props.editItem) {
+      if (this.props.editItem) {
+        this.setInputs(this.props.editItem);
+      } else {
+        this.setInputs(this.initial.inputs);
       }
+    }
   }
-}
 
   render() {
     // if (this.props.id)
@@ -125,7 +124,17 @@ componentDidUpdate(prevProps) {
             isInvalid={null}
             feedback="Ensure end date is valid"
           />
-
+          <TextareaAutosize
+            className="mb-1 w-100 textarea"
+            controlId="description"
+            label="Description"
+            name="description"
+            value={description}
+            placeholder="Describe your experience in this role."
+            onChange={(e) => this.handleInputChange(e)}
+            isInvalid={null}
+            feedback=""
+          />
           <div>
             <Button
               onClick={() => this.trySubmitEntry()}

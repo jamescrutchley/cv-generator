@@ -23,7 +23,7 @@ class GeneralForm extends Component {
     //validation then
 
     this.props.addInfoMethod(this.state.inputs);
-  }
+  };
 
   handleInputChange = (e) => {
     const { name, value } = e.target;

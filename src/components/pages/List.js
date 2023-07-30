@@ -14,22 +14,17 @@ class List extends Component {
     return (
       <div className="list">
         <h4>Your {section}:</h4>
-        {allData.map(
-          (
-            item,
-            index
-          ) => (
-            <ListItem
-              key={index}
-              data={item}
-              currentlyEditing={currentlyEditing}
-              methods={{
-                edit: handleUnitEdit,
-                remove: handleUnitRemoval,
-              }}
-            />
-          )
-        )}
+        {allData.map((item, index) => (
+          <ListItem
+            key={index}
+            data={item}
+            currentlyEditing={currentlyEditing}
+            methods={{
+              edit: handleUnitEdit,
+              remove: handleUnitRemoval,
+            }}
+          />
+        ))}
       </div>
     );
   }

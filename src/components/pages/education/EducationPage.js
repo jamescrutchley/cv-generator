@@ -39,7 +39,6 @@ class EducationPage extends Component {
   handleAddEntry = (entry) => {
     // Everything that hits this component is already validated.
 
-    console.log(this.state.currentlyEditing);
     if (!entry.id) {
       const newEntry = { ...entry, id: uniqid() };
       const updatedList = [...this.state.list, newEntry];
