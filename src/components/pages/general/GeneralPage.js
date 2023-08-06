@@ -14,6 +14,9 @@ class GeneralPage extends Component {
   handleAddInfo = (newInfo) => {
     this.setState({
       info: newInfo,
+    },
+    () => {
+        this.props.updateCvInfo(newInfo, 'general');
     });
   };
 

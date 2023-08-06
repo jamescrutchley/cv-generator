@@ -26,7 +26,11 @@ class EducationPage extends Component {
     this.setState({
       list: updatedList,
       currentlyEditing: id === currentlyEditing ? "" : currentlyEditing,
+    },
+    () => {
+        this.props.updateCvInfo({...updatedList}, 'education');
     });
+
   };
 
   getItemBeingEditedDetailsForTheFormInputs = (id) => {
@@ -46,6 +50,9 @@ class EducationPage extends Component {
       this.setState({
         list: updatedList,
         currentlyEditing: "",
+      },
+      () => {
+        this.props.updateCvInfo({...updatedList}, 'education');
       });
     } else {
       const updatedList = this.state.list.map((item) =>
@@ -55,9 +62,13 @@ class EducationPage extends Component {
       this.setState({
         list: updatedList,
         currentlyEditing: "",
+      },
+      () => {
+        this.props.updateCvInfo({...updatedList}, 'education');
       });
       //update existing item.
     }
+    this.props.updateCvInfo(this.state.list, 'education');
   };
 
   render() {

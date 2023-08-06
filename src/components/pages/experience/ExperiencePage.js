@@ -24,7 +24,11 @@ class ExperiencePage extends Component {
 
     this.setState({
       list: updatedList,
+    },
+    () => {
+        this.props.updateCvInfo(updatedList, 'experience');
     });
+
   };
 
   // This seems clunky
@@ -45,6 +49,9 @@ class ExperiencePage extends Component {
       this.setState({
         list: updatedList,
         currentlyEditing: "",
+      },
+      () => {
+        this.props.updateCvInfo({...updatedList}, 'experience');
       });
     } else {
       const updatedList = this.state.list.map((item) =>
@@ -54,6 +61,9 @@ class ExperiencePage extends Component {
       this.setState({
         list: updatedList,
         currentlyEditing: "",
+      },
+      () => {
+        this.props.updateCvInfo({...updatedList}, 'experience');
       });
       //update existing item.
     }

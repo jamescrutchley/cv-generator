@@ -12,6 +12,11 @@ class Main extends Component {
     super(props);
     this.state = {
       section: 1,
+      cvInfo: {
+        general: {},
+        education:{},
+        experience: {}
+      }
     };
     this.handleNavigationChange = this.handleNavigationChange.bind(this);
   }
@@ -29,17 +34,30 @@ class Main extends Component {
         <GeneralPage
           className={section === 1 ? "active" : "hidden"}
           handleNavChange={this.handleNavigationChange}
+          updateCvInfo={this.updateCvInfo}
         />
         <EducationPage
           className={section === 2 ? "active" : "hidden"}
           handleNavChange={this.handleNavigationChange}
+          updateCvInfo={this.updateCvInfo}
         />
         <ExperiencePage
           className={section === 3 ? "active" : "hidden"}
           handleNavChange={this.handleNavigationChange}
+          updateCvInfo={this.updateCvInfo}
         />
       </div>
     );
+  }
+
+  updateCvInfo = (newInfo, sectionName) => {
+    
+    this.setState(prevState => ({
+        cvInfo: {
+          ...prevState.cvInfo,
+          [sectionName]: newInfo
+        }
+      }))
   }
 
   handleNavigationChange = (whereTo) => {
@@ -71,11 +89,11 @@ class Main extends Component {
           </div>
         </div>
 
-        {/* <CV
-          general={inputs.general}
-          education={educationList}
-          experience={experienceList}
-        /> */}
+        <CV
+          general={this.state.cvInfo.general}
+          education={this.state.cvInfo.education}
+          experience={this.state.cvInfo.experience}
+        />
       </div>
     );
   }
